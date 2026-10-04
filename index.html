@@ -4,19 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Българска Федерация Киокушин-кан</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+<meta name="description" content="Официален сайт на Българска Федерация Киокушин-кан — новини, спортен календар, контакти и история на федерацията.">
+<meta property="og:title" content="Българска Федерация Киокушин-кан">
+<meta property="og:description" content="Духът на Будо. Силата на Осу. Единството на Киокушин.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://i.ibb.co/kgmz2QJw/remix1-no-bckgrnd.png">
+<meta name="theme-color" content="#0A125D">
+<link rel="icon" href="https://i.ibb.co/kgmz2QJw/remix1-no-bckgrnd.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --navy:      #0A125D;
-    --blue:      #1a3a6e;
-    --mid-blue:  #1e3f8a;
     --accent:    #2a5fd6;
     --gold:      #F7E7C3;
     --gold-deep: #c9a84c;
     --white:     #ffffff;
-    --off-white: #f4f6fb;
-    --gray:      #6b7a94;
-    --light-gray:#dde4ef;
     --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
@@ -31,7 +38,16 @@
     min-height: 100vh;
   }
 
-  /* ── BACKGROUND ── */
+  .skip-link {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--gold); color: var(--navy);
+    padding: 10px 16px; z-index: 10000;
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px; text-transform: uppercase;
+    text-decoration: none; border-radius: 0 0 6px 0;
+  }
+  .skip-link:focus { left: 0; }
+
   .bg-fixed {
     position: fixed; inset: 0; z-index: -2;
     background: url('https://i.ibb.co/1Y6qMBFx/sora-bckgrnd.png') center top / cover no-repeat;
@@ -42,7 +58,6 @@
     background: rgba(10, 18, 93, 0.40);
   }
 
-  /* ── KANKU WATERMARK ── */
   .kanku-overlay {
     position: fixed;
     left: 50%;
@@ -55,16 +70,18 @@
     height: 60vmin;
     display: flex; align-items: center; justify-content: center;
   }
-
   .kanku-overlay img { width: 100%; height: 100%; object-fit: contain; }
 
-  /* ── NAV ── */
   nav#sitenav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     background: rgba(10, 18, 93, 0.80);
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: none; box-shadow: none;
     overflow: visible;
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    nav#sitenav { background: rgba(10, 18, 93, 0.96); }
   }
 
   .nav-top {
@@ -73,7 +90,12 @@
     gap: 32px;
   }
 
-  .nav-logo { display: flex; align-items: center; gap: 16px; cursor: pointer; text-decoration: none; flex-shrink: 0; }
+  .nav-logo {
+    display: flex; align-items: center; gap: 16px;
+    cursor: pointer; text-decoration: none; flex-shrink: 0;
+    background: none; border: none; padding: 0; color: inherit;
+    font: inherit;
+  }
   .nav-logo img { height: 120px; width: auto; }
 
   .nav-title {
@@ -84,9 +106,10 @@
     text-transform: uppercase;
     line-height: 1.2;
     text-align: center;
+    display: block;
   }
 
-  .nav-title span {
+  .nav-title .nav-title-line2 {
     display: block;
     font-size: 28px; font-weight: 700;
     letter-spacing: 0.04em;
@@ -96,12 +119,6 @@
   }
 
   .nav-spacer { flex: 1; }
-
-  .nav-socials { display: none; }
-
-  .nav-bar {
-    display: none;
-  }
 
   .nav-menu {
     display: grid;
@@ -136,7 +153,14 @@
     border-color: rgba(247,231,195,0.35);
   }
 
-  /* ── SHARD ANIMATION ── */
+  .nav-menu a:focus-visible,
+  .nav-logo:focus-visible,
+  .lang-toggle button:focus-visible,
+  .social-link:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
   .shard {
     position: absolute;
     width: 6px; height: 6px;
@@ -147,7 +171,6 @@
     clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
   }
 
-  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column;
@@ -176,6 +199,8 @@
     opacity: 0; animation: fadeUp 0.7s ease 0.2s both;
   }
 
+  .hero-title .hero-title-line1 { display: block; }
+
   .hero-title em {
     font-style: normal;
     color: var(--gold);
@@ -188,38 +213,6 @@
     max-width: 560px; margin: 0 auto 48px;
     opacity: 0; animation: fadeUp 0.7s ease 0.3s both;
   }
-
-  .hero-ctas {
-    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
-    opacity: 0; animation: fadeUp 0.7s ease 0.4s both;
-  }
-
-  .btn-gold {
-    font-family: 'Oswald', sans-serif;
-    font-size: 13px; font-weight: 500;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    background: var(--gold); color: var(--navy);
-    padding: 13px 32px; border-radius: 5px;
-    text-decoration: none; cursor: pointer; border: none;
-    transition: opacity 0.2s, transform 0.15s;
-    display: inline-block;
-  }
-
-  .btn-gold:hover { opacity: 0.85; transform: translateY(-2px); }
-
-  .btn-outline {
-    font-family: 'Oswald', sans-serif;
-    font-size: 13px; font-weight: 400;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    background: transparent; color: rgba(255,255,255,0.8);
-    padding: 12px 32px; border-radius: 5px;
-    border: 1.5px solid rgba(255,255,255,0.25);
-    text-decoration: none; cursor: pointer;
-    transition: border-color 0.2s, color 0.2s;
-    display: inline-block;
-  }
-
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
   .hero-scroll {
     position: absolute; bottom: 40px; left: 50%;
@@ -245,30 +238,24 @@
     50%       { opacity: 1;   transform: scaleY(1.15); }
   }
 
-  /* ── MAIN CONTENT ── */
   main {
     position: relative; z-index: 1;
     padding-top: 148px;
+    outline: none;
   }
 
-  /* ── SECTIONS ── */
   .section {
     display: none;
     padding: 0;
   }
-
   .section.active { display: block; }
 
   .section-inner {
     max-width: 1100px; margin: 0 auto;
     padding: 56px 48px 80px;
   }
+  .section-inner p { text-align: justify; }
 
-  .section-inner p {
-    text-align: justify;
-  }
-
-  /* ── SECTION HEADER ── */
   .section-eyebrow {
     font-family: 'Oswald', sans-serif;
     font-size: 11px; font-weight: 500;
@@ -277,7 +264,6 @@
     margin-bottom: 12px;
     display: flex; align-items: center; gap: 12px;
   }
-
   .section-eyebrow::before {
     content: ''; display: block;
     width: 28px; height: 1.5px; background: var(--gold-deep);
@@ -291,7 +277,6 @@
     margin-bottom: 40px;
   }
 
-  /* ── NEWS ── */
   .news-list { display: flex; flex-direction: column; gap: 0; }
 
   .news-item {
@@ -300,7 +285,6 @@
     display: grid; grid-template-columns: 120px 1fr;
     gap: 32px; align-items: start;
   }
-
   .news-item:first-child { padding-top: 0; }
 
   .news-date {
@@ -317,13 +301,18 @@
     color: rgba(255,255,255,0.82);
     margin-bottom: 12px;
   }
-
   .news-body p:last-child { margin-bottom: 0; }
 
-  /* ── CALENDAR ── */
+  .table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .cal-table {
     width: 100%; border-collapse: collapse;
     margin-top: 8px;
+    min-width: 640px;
   }
 
   .cal-table th, .cal-table td {
@@ -358,10 +347,9 @@
     font-weight: 600;
   }
 
-  /* ── CONTACTS ── */
   .contacts-grid {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 32px; margin-bottom: 48px;
+    gap: 32px; margin-bottom: 32px;
   }
 
   .contact-card {
@@ -393,14 +381,13 @@
     border-bottom: 1px solid rgba(247,231,195,0.3);
     transition: border-color 0.2s;
   }
-
   .contact-card-value a:hover { border-color: var(--gold); color: var(--gold); }
 
   .socials-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-top: 8px;
+    margin-top: 16px;
     width: 100%;
   }
 
@@ -417,11 +404,9 @@
     transition: all 0.2s;
     width: 100%;
   }
-
   .social-link img { width: 20px; height: 20px; object-fit: contain; }
   .social-link:hover { background: rgba(247,231,195,0.1); border-color: rgba(247,231,195,0.3); color: var(--gold); }
 
-  /* ── HISTORY ── */
   .history-part { margin-bottom: 52px; }
 
   .history-part-title {
@@ -430,7 +415,6 @@
     color: var(--gold); margin-bottom: 20px;
     display: flex; align-items: center; gap: 14px;
   }
-
   .history-part-title::after {
     content: ''; flex: 1; height: 1px; background: rgba(247,231,195,0.15);
   }
@@ -441,24 +425,8 @@
     margin-bottom: 16px;
     text-align: justify;
   }
-
   .history-part p:last-child { margin-bottom: 0; }
 
-  /* ── FOOTER (inside each section) ── */
-  .section-footer {
-    text-align: center;
-    padding: 32px 0 0;
-    border-top: 1px solid rgba(255,255,255,0.07);
-    margin-top: 20px;
-  }
-
-  .section-footer span {
-    font-family: 'Oswald', sans-serif;
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
-  }
-
-  /* ── PAGE FOOTER ── */
   footer {
     position: relative; z-index: 1;
     border-top: 1px solid rgba(255,255,255,0.07);
@@ -477,13 +445,11 @@
     color: var(--gold-deep);
     text-decoration: none;
   }
-
   .footer-credit a:hover {
     color: var(--gold);
     text-decoration: underline;
   }
 
-  /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -493,17 +459,17 @@
     animation: fadeUp 0.5s ease both;
   }
 
-  /* ── LANG TOGGLE ── */
   .lang-toggle {
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-shrink: 0;
-    background: var(--gold);
+    background: var(--navy);
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0,0,0,0.35);
     margin-left: 16px;
+    border: 1px solid rgba(247,231,195,0.35);
   }
 
   .lang-toggle button {
@@ -518,26 +484,45 @@
     transition: all 0.25s var(--ease);
     line-height: 1;
     background: transparent;
-    color: var(--navy);
+    color: rgba(255,255,255,0.7);
   }
-
   .lang-toggle button.lang-active {
     background: var(--gold);
     color: var(--navy);
   }
-
-  .lang-toggle button:not(.lang-active) {
-    background: var(--navy);
-    color: rgba(255,255,255,0.7);
-  }
-
   .lang-toggle button:not(.lang-active):hover {
     color: var(--gold);
   }
 
-  /* ── MOBILE ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .scroll-line { animation: none; }
+    .hero-eyebrow, .hero-title, .hero-subtitle, .hero-scroll {
+      opacity: 1; animation: none;
+    }
+  }
+
   @media (max-width: 768px) {
+    .nav-top {
+      padding: 10px 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .nav-logo { flex: 1; }
+    .nav-logo img { height: 56px; }
+    .nav-title { font-size: 13px; }
+    .nav-title .nav-title-line2 { font-size: 13px; }
+    .nav-spacer { display: none; }
+
     .lang-toggle {
+      order: 1;
+      flex-shrink: 0;
       border-radius: 7px;
       margin-left: 0;
     }
@@ -545,26 +530,7 @@
       font-size: 12px;
       padding: 7px 12px;
     }
-    .nav-top {
-      padding: 10px 16px;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-    .nav-logo {
-      flex: 1;
-    }
-    .nav-logo img { height: 56px; }
-    .nav-title { font-size: 13px; }
-    .nav-title span { font-size: 13px; }
-    .nav-spacer { display: none; }
 
-    .lang-toggle {
-      order: 1;
-      flex-shrink: 0;
-    }
-
-    /* Menu wraps below logo, full width, centered */
     .nav-menu {
       width: 100%;
       justify-content: center;
@@ -592,67 +558,64 @@
 </head>
 <body>
 
-<!-- BACKGROUNDS -->
-<div class="bg-fixed"></div>
-<div class="bg-overlay"></div>
-<div class="kanku-overlay" id="kanku">
-  <img src="https://i.ibb.co/pjsdsms2/kyokushinkan-kanku.png" alt="Канку">
+<a href="#main-content" class="skip-link">Към съдържанието</a>
+
+<div class="bg-fixed" aria-hidden="true"></div>
+<div class="bg-overlay" aria-hidden="true"></div>
+<div class="kanku-overlay" id="kanku" aria-hidden="true">
+  <img src="https://i.ibb.co/pjsdsms2/kyokushinkan-kanku.png" alt="">
 </div>
 
-<!-- NAV -->
-<nav id="sitenav">
+<nav id="sitenav" aria-label="Основна навигация">
   <div class="nav-top">
-    <a class="nav-logo" onclick="goHome()">
-      <img src="https://i.ibb.co/kgmz2QJw/remix1-no-bckgrnd.png" alt="Лого">
-      <div class="nav-title">
-        Българска Федерация
-        <span>Киокушин-кан</span>
-      </div>
+    <a class="nav-logo" href="#home" id="logoBtn" role="button">
+      <img src="https://i.ibb.co/kgmz2QJw/remix1-no-bckgrnd.png" alt="Лого на БФК">
+      <span class="nav-title">
+        <span class="nav-title-line1" data-i18n="nav-title-line1">Българска Федерация</span>
+        <span class="nav-title-line2" data-i18n="nav-title-line2">Киокушин-кан</span>
+      </span>
     </a>
     <div class="nav-spacer"></div>
     <div class="nav-menu" id="navmenu">
-      <a data-s="news"     onclick="openSection('news')">Новини</a>
-      <a data-s="calendar" onclick="openSection('calendar')">Календар</a>
-      <a data-s="contacts" onclick="openSection('contacts')">Контакти</a>
-      <a data-s="history"  onclick="openSection('history')">История</a>
+      <a href="#news"     role="button" data-s="news"     data-i18n="nav-news">Новини</a>
+      <a href="#calendar" role="button" data-s="calendar" data-i18n="nav-calendar">Календар</a>
+      <a href="#contacts" role="button" data-s="contacts" data-i18n="nav-contacts">Контакти</a>
+      <a href="#history"  role="button" data-s="history"  data-i18n="nav-history">История</a>
     </div>
-    <div class="lang-toggle" id="langToggle">
-      <button id="btnBG" class="lang-active" onclick="setLang('bg')">БГ</button>
-      <button id="btnEN" onclick="setLang('en')">EN</button>
+    <div class="lang-toggle" id="langToggle" role="group" aria-label="Избор на език">
+      <button type="button" id="btnBG" class="lang-active" aria-pressed="true"  lang="bg" data-lang="bg">БГ</button>
+      <button type="button" id="btnEN" aria-pressed="false" lang="en" data-lang="en">EN</button>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-eyebrow">Официален уебсайт</div>
+  <div class="hero-eyebrow" data-i18n="hero-eyebrow">Официален уебсайт</div>
   <h1 class="hero-title">
-    Българска Федерация<br>
-    <em>Киокушин-кан</em>
+    <span class="hero-title-line1" data-i18n="hero-title-line1">Българска Федерация</span>
+    <em data-i18n="hero-title-em">Киокушин-кан</em>
   </h1>
-  <p class="hero-subtitle">
+  <p class="hero-subtitle" data-i18n="hero-subtitle">
     Духът на Будо. Силата на Осу. Единството на Киокушин.
   </p>
-
-  <div class="hero-scroll">
+  <div class="hero-scroll" aria-hidden="true">
     <div class="scroll-line"></div>
     <span>Scroll</span>
   </div>
 </section>
 
-<!-- MAIN -->
-<main id="main-content">
+<main id="main-content" tabindex="-1">
 
-  <!-- ── НОВИНИ ── -->
+  <!-- НОВИНИ -->
   <div class="section" id="news">
     <div class="section-inner">
-      <div class="section-eyebrow">Последни</div>
-      <h2 class="section-title">Новини</h2>
+      <div class="section-eyebrow" data-i18n="news-eyebrow">Последни</div>
+      <h1 class="section-title" data-i18n="news-title">Новини</h1>
 
       <div class="news-list">
 
-        <div class="news-item">
-          <div class="news-date">03.08.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-08-03">03.08.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-12-p1">С дълбока тъга всички ръководители и членове на Българска Федерация Киокушин-кан приехме новината за кончината на Кайчо Хацуо Рояма – един изключителен учител и човек, оставил незаличима следа в световните бойни изкуства и развитието на киокушин карате.</p>
             <p data-i18n-html="news-12-p2">За нас е чест да бъдем част от голямото семейство на Киокушин-кан на Кайчо Рояма да черпим знания и вдъхновение от неговото дело.</p>
@@ -662,10 +625,10 @@
             <p data-i18n-html="news-12-p6">Поклон пред светлата му памет!</p>
             <p data-i18n-html="news-12-p7">Осу!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">05.07.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-07-05">05.07.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-7-p1">Летният технически лагер по Карате Киокушин-кан в Приморско приключи!</p>
             <p data-i18n-html="news-7-p2">След дни, изпълнени с усилени тренировки, нови знания, дисциплина, приятелства и незабравими емоции, нашият летен технически лагер достигна своя край.</p>
@@ -675,77 +638,66 @@
             <p data-i18n-html="news-7-p6">Благодарим на инструкторите за професионализма, търпението и отдадеността, както и на всички родители за доверието и подкрепата. Освен усилената подготовка, лагерът ни подари много усмивки, нови приятелства и прекрасни спомени край морето, които ще останат с нас дълго време.</p>
             <p data-i18n-html="news-7-p7">Пожелаваме на всички успешно лято, много здраве и мотивация! Продължавайте да тренирате, защото пътят на карате е път на непрекъснато усъвършенстване.</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">02.07.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-07-02">02.07.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-8-p1">Дадохме началото на Петия летен технически лагер по Карате Киокушин-кан в Приморско!</p>
             <p data-i18n-html="news-8-p2">Предстоят дни, изпълнени с усилени тренировки, усъвършенстване на техниката, дисциплина, нови знания и незабравими емоции. Лагерът е възможност всеки участник да надгради уменията си, да се предизвика и да изгради още по-силен дух.</p>
             <p data-i18n-html="news-8-p3">Освен усилената подготовка, ни очакват много усмивки, приятелства и споделени моменти край морето, които ще останат незабравим спомен за всички.</p>
             <p data-i18n-html="news-8-p4">Пожелаваме успех на всички каратеки, здраве, силен дух и ползотворни тренировки!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">30.06.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-06-30">30.06.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-9-p1">Двудневният европейски семинар за инструктори на Киокушин-кан и изпитът за придобиване на степен приключиха успешно!</p>
             <p data-i18n-html="news-9-p2">Инструктори и ученици от цяла Европа тренираха с голям ентусиазъм, което превърна събитието в наистина значима възможност за задълбочаване не само на техническите им умения, но и на разбирането им за духа на будо.</p>
             <p data-i18n-html="news-9-p3">По време на изпита за придобиване на степен резултатите от семинара бяха ясно видими, а искреното отношение и всеотдайността на всеки кандидат оставиха силно впечатление.</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">29.06.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-06-29">29.06.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-10-p1">С успешно проведения финален ден завърши Отвореното европейско първенство по карате Киокушин-кан, проведено в прекрасния град Бургас!</p>
             <p data-i18n-html="news-10-p2">Изказваме своята искрена благодарност към всички състезатели, които демонстрираха спортен дух, воля и майсторство, към треньорите за тяхната всеотдайност, както и към съдиите, реферите и официалните лица за професионализма и безупречната организация на състезанието.</p>
             <p data-i18n-html="news-10-p3">Специални благодарности отправяме към Община Бургас за подкрепата и съдействието при организирането на това престижно спортно събитие. Благодарим и на всички, които направиха церемонията по закриването още по-вълнуваща и запомняща се:<br><br>• Общински професионален фолклорен ансамбъл „Странджа" с ръководител Марио Егов за великолепното фолклорно изпълнение.<br><br>• Малките шампиони от клуб по художествена гимнастика „Черноморец" с треньор Мария Калангерова за красивото и вдъхновяващо представяне.<br><br>• Клуб „Хикари" и сенсей Вели Аслан за впечатляващата демонстрация на традиционно японско джу джутсу, както и на Шихан Масахиде Ишиджима за вдъхновяващата демонстрация, която беше истинска чест за всички присъстващи.</p>
             <p data-i18n-html="news-10-p4">До нови срещи!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">28.06.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-06-28">28.06.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-11-p1">Първият ден от Отвореното европейско първенство по Карате Киокушин-кан в град Бургас приключи успешно! Денят беше изпълнен с много емоции, оспорвани двубои, силен спортен дух и достойно представяне на всички състезатели. Благодарим на участниците, треньорите, съдиите, организаторите и публиката, които направиха този ден незабравим!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">27.04.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-04-27">27.04.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-6-p1">На 26-и април 2026 г. в гр. Габрово, в зала „Орловец", се проведе Държавното първенство по Киокушин-кан за всички възрасти във формат кумите. Събитието събра десетки клубове и състезатели от цялата страна, които демонстрираха висок боен дух, отлична подготовка и уважение към традициите на киокушин.</p>
             <p data-i18n-html="news-6-p2">Специален акцент на първенството беше отбелязването на 40 години Киокушин карате в гр. Габрово, за което основен принос има шихан Андреян Иванов.</p>
             <p data-i18n-html="news-6-p3">Поздравяваме всички участници за отдадеността и упорития труд! Готови сме за нови предизвикателства и нови победи! Следващата спирка на нашето пътешествие по пътя на Киокушин-кан карате е още по-близо — гр. Бургас, 27–28.06.2026 г.!</p>
             <p data-i18n-html="news-6-p4">Държавното първенство в гр. Габрово беше важен тест за състезатели, треньори и съдии преди предстоящото Открито европейско първенство в гр. Бургас през юни! Това събитие ни даде ценни уроци и вдъхновение, за да се подготвим още по-добре за предстоящите предизвикателства на международната сцена!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">11.04.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-04-11">11.04.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-5-p1">Силно представяне на българските състезатели беляза дебютното издание на THE 1st POLISH–EUROPEAN CHAMPIONSHIP WKO, където бойците на Българска Федерация Киокушин-кан завоюваха общо седем медала в дисциплините кумите и ката.</p>
-            <p data-i18n-html="news-5-p2">Отлично представяне записаха:<br><br>
-👏 <strong>Евгени Георгиев</strong>, СКК Киокушин – Ямбол<br>
-🥈 2-ро място кумите<br>
-🥈 2-ро място ката<br><br>
-👏 <strong>Павлина Илиева</strong>, СКК Киокушин – Ямбол<br>
-🥈 2-ро място кумите<br><br>
-👏 <strong>Ариана Михалева</strong>, СКК Киокушин – Ямбол<br>
-🥉 3-то място кумите<br>
-🥉 3-то място ката<br><br>
-👏 <strong>Надежда Балчева</strong>, СКК Киокушин – Габрово<br>
-🥈 2-ро място кумите<br>
-🥉 3-то място ката</p>
+            <p data-i18n-html="news-5-p2">Отлично представяне записаха:<br><br>👏 <strong>Евгени Георгиев</strong>, СКК Киокушин – Ямбол<br>🥈 2-ро място кумите<br>🥈 2-ро място ката<br><br>👏 <strong>Павлина Илиева</strong>, СКК Киокушин – Ямбол<br>🥈 2-ро място кумите<br><br>👏 <strong>Ариана Михалева</strong>, СКК Киокушин – Ямбол<br>🥉 3-то място кумите<br>🥉 3-то място ката<br><br>👏 <strong>Надежда Балчева</strong>, СКК Киокушин – Габрово<br>🥈 2-ро място кумите<br>🥉 3-то място ката</p>
             <p data-i18n-html="news-5-p3">Състезателите и техните треньори показаха висока подготовка, дисциплина и боен дух, които донесоха заслужено признание на международната сцена.</p>
             <p data-i18n-html="news-5-p4">Поздравления за медалистите и техните наставници – вашият труд е истинско вдъхновение за цялата Киокушин общност!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">31.03.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-03-31">31.03.2026</time></div>
           <div class="news-body">
             <p data-i18n-html="news-0-p1">Българска федерация Киокушин-кан поздравява Кайчо Рояма за рождения му ден!</p>
             <p data-i18n-html="news-0-p2">Пожелаваме му здраве, дълголетие и безкрайна енергия и вдъхновение, за да продължи да развива и разпространява духа на Киокушин по целия свят.</p>
@@ -754,474 +706,281 @@
             <p data-i18n-html="news-0-p5">С дълбоко уважение и признателност.</p>
             <p data-i18n-html="news-0-p6">Осу!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">16.03.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-03-16">16.03.2026</time></div>
           <div class="news-body">
-            <p>На 15-март се проведе първият турнир на БФК в гр. София — Държавно първенство по ката на БФК <strong>„Феникс"</strong> с клуб-домакин "Феникс Люлин". Събитието събра 101 участници от десет града. Конкуренцията сред децата и юношите беше голяма, но от тяхна страна бяха демонстрирани желание и качества, включително и сред тези, които се явиха за първи път.</p>
-            <p>Поздравления към всички участници за отдадеността, дисциплината и смелостта на най-малките да се включат в тази специфична и трудна дисциплина!</p>
+            <p data-i18n-html="news-1-p1">На 15-март се проведе първият турнир на БФК в гр. София — Държавно първенство по ката на БФК <strong>„Феникс"</strong> с клуб-домакин "Феникс Люлин". Събитието събра 101 участници от десет града. Конкуренцията сред децата и юношите беше голяма, но от тяхна страна бяха демонстрирани желание и качества, включително и сред тези, които се явиха за първи път.</p>
+            <p data-i18n-html="news-1-p2">Поздравления към всички участници за отдадеността, дисциплината и смелостта на най-малките да се включат в тази специфична и трудна дисциплина!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">16.02.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-02-16">16.02.2026</time></div>
           <div class="news-body">
-            <p>На 14-и и 15-и февруари в гр. Атина шихан Николай Рачев и сенпай Свилен Биков представиха Българска Федерация Киокушин-кан в международен семинар, воден от шихан Брандън Денито (Швеция), който проведе интензивни технически занимания, работа върху кихон, ката и кумите, както и задълбочени разяснения върху принципите и философията на киокушин.</p>
-            <p>Шихан Николай Рачев активно участва в тренировъчния процес и обмена на международен опит с представители на киокушин-кан от Гърция, Германия, Израел и Холандия. Подобни събития затвърждават връзките между организациите и развиват единството в семейството на Kyokushin-kan International.</p>
-            <p>Поздравления към всички участници за отдадеността, дисциплината и бойния дух!</p>
+            <p data-i18n-html="news-2-p1">На 14-и и 15-и февруари в гр. Атина шихан Николай Рачев и сенпай Свилен Биков представиха Българска Федерация Киокушин-кан в международен семинар, воден от шихан Брандън Денито (Швеция), който проведе интензивни технически занимания, работа върху кихон, ката и кумите, както и задълбочени разяснения върху принципите и философията на киокушин.</p>
+            <p data-i18n-html="news-2-p2">Шихан Николай Рачев активно участва в тренировъчния процес и обмена на международен опит с представители на киокушин-кан от Гърция, Германия, Израел и Холандия. Подобни събития затвърждават връзките между организациите и развиват единството в семейството на Kyokushin-kan International.</p>
+            <p data-i18n-html="news-2-p3">Поздравления към всички участници за отдадеността, дисциплината и бойния дух!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">09.02.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-02-09">09.02.2026</time></div>
           <div class="news-body">
-            <p>На 7-и и 8-и февруари 2026 г. в Тунис шихан Николай Рачев и шихан Андреян Иванов имаха възможността да предадат умения, знания и опит на трениращите карате Киокушин-кан — с уникално съчетание на древна история, богата култура и средиземноморски дух! Това е голямо признание за майсторските умения и силния боен дух на ръководителите на Българска Федерация Киокушин-кан!</p>
-            <p>Пожелаваме им успех и нека да се насладят между тренировките на вдъхновяваща атмосфера между Средиземно море и пустинята Сахара!</p>
+            <p data-i18n-html="news-3-p1">На 7-и и 8-и февруари 2026 г. в Тунис шихан Николай Рачев и шихан Андреян Иванов имаха възможността да предадат умения, знания и опит на трениращите карате Киокушин-кан — с уникално съчетание на древна история, богата култура и средиземноморски дух! Това е голямо признание за майсторските умения и силния боен дух на ръководителите на Българска Федерация Киокушин-кан!</p>
+            <p data-i18n-html="news-3-p2">Пожелаваме им успех и нека да се насладят между тренировките на вдъхновяваща атмосфера между Средиземно море и пустинята Сахара!</p>
           </div>
-        </div>
+        </article>
 
-        <div class="news-item">
-          <div class="news-date">12.01.2026</div>
+        <article class="news-item">
+          <div class="news-date"><time datetime="2026-01-12">12.01.2026</time></div>
           <div class="news-body">
-            <p>На 10-и и 11-и януари в гр. Стара Загора се проведе общо събрание на федерацията. Беше уточнен спортния календар за 2026 г., като най-значимото мероприятие ще бъде <strong>Европейското първенство</strong>, на което БФК ще е домакин в Бургас.</p>
-            <p>Сенсей Георги Георгиев от гр. Ямбол беше награден с плакет от Шихан Николай Рачев и получи признание за треньор на годината за постигнатото 3-то място на Световното първенство в Токио от Ивеслав Маринов.</p>
+            <p data-i18n-html="news-4-p1">На 10-и и 11-и януари в гр. Стара Загора се проведе общо събрание на федерацията. Беше уточнен спортния календар за 2026 г., като най-значимото мероприятие ще бъде <strong>Европейското първенство</strong>, на което БФК ще е домакин в Бургас.</p>
+            <p data-i18n-html="news-4-p2">Сенсей Георги Георгиев от гр. Ямбол беше награден с плакет от Шихан Николай Рачев и получи признание за треньор на годината за постигнатото 3-то място на Световното първенство в Токио от Ивеслав Маринов.</p>
           </div>
-        </div>
+        </article>
 
       </div>
     </div>
   </div>
 
-  <!-- ── КАЛЕНДАР ── -->
+  <!-- КАЛЕНДАР -->
   <div class="section" id="calendar">
     <div class="section-inner">
-      <div class="section-eyebrow">Спортна програма</div>
-      <h2 class="section-title">Календар 2026</h2>
+      <div class="section-eyebrow" data-i18n="cal-eyebrow">Спортна програма</div>
+      <h1 class="section-title" data-i18n="cal-title">Календар 2026</h1>
 
-      <table class="cal-table">
-        <thead>
-          <tr>
-            <th style="width:80px;">Дата</th>
-            <th>Събитие</th>
-            <th>Участници</th>
-            <th style="width:140px;">Място</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="cal-month" colspan="4">ЯНУАРИ</td></tr>
-          <tr><td>09–11</td><td>Треньорски семинар</td><td>Треньори, пом. треньори, инструктори</td><td>Стара Загора</td></tr>
-          <tr><td>09–11</td><td>Лагер-сбор на разширен национален отбор</td><td>Проекто-национални състезатели</td><td>Стара Загора</td></tr>
+      <div class="table-scroll">
+        <table class="cal-table">
+          <thead>
+            <tr>
+              <th style="width:80px;" data-i18n="cal-th-date">Дата</th>
+              <th data-i18n="cal-th-event">Събитие</th>
+              <th data-i18n="cal-th-participants">Участници</th>
+              <th style="width:140px;" data-i18n="cal-th-place">Място</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-jan">ЯНУАРИ</td></tr>
+            <tr><td>09–11</td><td data-i18n="cal-e1">Треньорски семинар</td><td data-i18n="par-coaches">Треньори, пом. треньори, инструктори</td><td data-i18n="loc-sz">Стара Загора</td></tr>
+            <tr><td>09–11</td><td data-i18n="cal-e2">Лагер-сбор на разширен национален отбор</td><td data-i18n="par-national">Проекто-национални състезатели</td><td data-i18n="loc-sz">Стара Загора</td></tr>
 
-          <tr><td class="cal-month" colspan="4">ФЕВРУАРИ</td></tr>
-          <tr><td>01–28</td><td>Изпити за технически степени</td><td>До V кю</td><td>По градове</td></tr>
-          <tr><td>21–22</td><td>Семинари по комисии, съдийски семинар, предварителен изпит</td><td>Всички членове на комисии; кандидати за изпит I кю, II кю, I дан и II дан</td><td>Ямбол</td></tr>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-feb">ФЕВРУАРИ</td></tr>
+            <tr><td>01–28</td><td data-i18n="cal-e3">Изпити за технически степени</td><td data-i18n="par-to5kyu">До V кю</td><td data-i18n="loc-cities">По градове</td></tr>
+            <tr><td>21–22</td><td data-i18n="cal-e4">Семинари по комисии, съдийски семинар, предварителен изпит</td><td data-i18n="par-commission">Всички членове на комисии; кандидати за изпит I кю, II кю, I дан и II дан</td><td data-i18n="loc-yambol">Ямбол</td></tr>
 
-          <tr><td class="cal-month" colspan="4">МАРТ</td></tr>
-          <tr><td>14</td><td>Съдийски семинар — ката</td><td>Лицензирани съдии и кандидат-съдии</td><td>София</td></tr>
-          <tr><td>15</td><td>Държавно първенство по ката „Феникс"</td><td>Всички възрасти</td><td>София</td></tr>
-          <tr><td>21–22</td><td>Лагер-сбор на разширен национален отбор</td><td>Проекто-национални състезатели</td><td>—</td></tr>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-mar">МАРТ</td></tr>
+            <tr><td>14</td><td data-i18n="cal-e5">Съдийски семинар — ката</td><td data-i18n="par-referees">Лицензирани съдии и кандидат-съдии</td><td data-i18n="loc-sofia">София</td></tr>
+            <tr><td>15</td><td data-i18n="cal-e6">Държавно първенство по ката „Феникс"</td><td data-i18n="par-all">Всички възрасти</td><td data-i18n="loc-sofia">София</td></tr>
+            <tr><td>21–22</td><td data-i18n="cal-e2">Лагер-сбор на разширен национален отбор</td><td data-i18n="par-national">Проекто-национални състезатели</td><td data-i18n="loc-dash">—</td></tr>
 
-          <tr><td class="cal-month" colspan="4">АПРИЛ</td></tr>
-          <tr><td>04</td><td>Lions Cup</td><td>Всички възрасти</td><td>Гюргево</td></tr>
-          <tr><td>11</td><td>WKO Полско-европейски шампионат</td><td>Всички възрасти</td><td>Потсдам</td></tr>
-          <tr><td>26</td><td>Национална купа „Габрово"</td><td>Всички възрасти</td><td>Габрово</td></tr>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-apr">АПРИЛ</td></tr>
+            <tr><td>04</td><td data-i18n="cal-e7">Lions Cup</td><td data-i18n="par-all">Всички възрасти</td><td data-i18n="loc-gyurg">Гюргево</td></tr>
+            <tr><td>11</td><td data-i18n="cal-e8">WKO Полско-европейски шампионат</td><td data-i18n="par-all">Всички възрасти</td><td data-i18n="loc-pots">Потсдам</td></tr>
+            <tr><td>26</td><td data-i18n="cal-e9">Национална купа „Габрово"</td><td data-i18n="par-all">Всички възрасти</td><td data-i18n="loc-gabr">Габрово</td></tr>
 
-          <tr><td class="cal-month" colspan="4">МАЙ</td></tr>
-          <tr><td>08–10</td><td>Лагер-сбор на разширен национален отбор</td><td>Проекто-национални състезатели</td><td>—</td></tr>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-may">МАЙ</td></tr>
+            <tr><td>08–10</td><td data-i18n="cal-e2">Лагер-сбор на разширен национален отбор</td><td data-i18n="par-national">Проекто-национални състезатели</td><td data-i18n="loc-dash">—</td></tr>
 
-          <tr><td class="cal-month" colspan="4">ЮНИ</td></tr>
-          <tr><td>06–07</td><td>Лагер-сбор на разширен национален отбор</td><td>Проекто-национални състезатели</td><td>—</td></tr>
-          <tr class="cal-highlight"><td>27–28</td><td>2026 OPEN KYOKUSHIN-KAN EUROPEAN CHAMPIONSHIP</td><td>—</td><td>Бургас</td></tr>
-          <tr class="cal-highlight"><td>29–30</td><td>2026 EUROPEAN OPEN SUMMER CAMP</td><td>—</td><td>Бургас</td></tr>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-jun">ЮНИ</td></tr>
+            <tr><td>06–07</td><td data-i18n="cal-e2">Лагер-сбор на разширен национален отбор</td><td data-i18n="par-national">Проекто-национални състезатели</td><td data-i18n="loc-dash">—</td></tr>
+            <tr class="cal-highlight"><td>27–28</td><td data-i18n="cal-e10">2026 OPEN KYOKUSHIN-KAN EUROPEAN CHAMPIONSHIP</td><td data-i18n="par-dash">—</td><td data-i18n="loc-burgas">Бургас</td></tr>
+            <tr class="cal-highlight"><td>29–30</td><td data-i18n="cal-e11">2026 EUROPEAN OPEN SUMMER CAMP</td><td data-i18n="par-dash">—</td><td data-i18n="loc-burgas">Бургас</td></tr>
 
-          <tr><td class="cal-month" colspan="4">ЮЛИ</td></tr>
-          <tr><td>01–05</td><td>Летен технически лагер</td><td>Всички възрасти</td><td>Приморско</td></tr>
-          <tr><td>03</td><td>Треньорски семинар</td><td>Инструктори, пом. треньори, треньори</td><td>Приморско</td></tr>
-          <tr><td>04</td><td>Изпит за технически степени</td><td>До II дан</td><td>Приморско</td></tr>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-jul">ЮЛИ</td></tr>
+            <tr><td>01–05</td><td data-i18n="cal-e12">Летен технически лагер</td><td data-i18n="par-all">Всички възрасти</td><td data-i18n="loc-prim">Приморско</td></tr>
+            <tr><td>03</td><td data-i18n="cal-e13">Треньорски семинар</td><td data-i18n="par-instructors">Инструктори, пом. треньори, треньори</td><td data-i18n="loc-prim">Приморско</td></tr>
+            <tr><td>04</td><td data-i18n="cal-e14">Изпит за технически степени</td><td data-i18n="par-to2dan">До II дан</td><td data-i18n="loc-prim">Приморско</td></tr>
 
-          <tr><td class="cal-month" colspan="4">СЕПТЕМВРИ</td></tr>
-          <tr><td>26</td><td>Montana Open Cup</td><td>Всички възрасти</td><td>Монтана</td></tr>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-sep">СЕПТЕМВРИ</td></tr>
+            <tr><td>26</td><td data-i18n="cal-e15">Montana Open Cup</td><td data-i18n="par-all">Всички възрасти</td><td data-i18n="loc-mont">Монтана</td></tr>
 
-          <tr><td class="cal-month" colspan="4">ОКТОМВРИ</td></tr>
-          <tr><td>10</td><td>Съдийски семинар кумите</td><td>Съдии Кан</td><td>Асеновград</td></tr>
-          <tr><td>11</td><td>Национална купа „Асенова крепост" — II дивизия</td><td>Всички възрасти</td><td>Асеновград</td></tr>
-          <tr><td>31</td><td>Национална купа „Дияна"</td><td>Всички възрасти</td><td>Ямбол</td></tr>
-        </tbody>
-      </table>
+            <tr><td class="cal-month" colspan="4" data-i18n="cal-month-oct">ОКТОМВРИ</td></tr>
+            <tr><td>10</td><td data-i18n="cal-e16">Съдийски семинар кумите</td><td data-i18n="par-refkan">Съдии Кан</td><td data-i18n="loc-assen">Асеновград</td></tr>
+            <tr><td>11</td><td data-i18n="cal-e17">Национална купа „Асенова крепост" — II дивизия</td><td data-i18n="par-all">Всички възрасти</td><td data-i18n="loc-assen">Асеновград</td></tr>
+            <tr><td>31</td><td data-i18n="cal-e18">Национална купа „Дияна"</td><td data-i18n="par-all">Всички възрасти</td><td data-i18n="loc-yambol">Ямбол</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-  <!-- ── КОНТАКТИ ── -->
+  <!-- КОНТАКТИ -->
   <div class="section" id="contacts">
     <div class="section-inner">
-      <div class="section-eyebrow">Връзка с нас</div>
-      <h2 class="section-title">Контакти</h2>
+      <div class="section-eyebrow" data-i18n="contacts-eyebrow">Връзка с нас</div>
+      <h1 class="section-title" data-i18n="contacts-title">Контакти</h1>
 
       <div class="contacts-grid">
         <div class="contact-card">
-          <div class="contact-card-label">Централен офис</div>
-          <div class="contact-card-value">гр. Бургас, ул. Сердика<br>бл. 2Б, ет. 3, офис 1</div>
+          <div class="contact-card-label" data-i18n="contacts-office-label">Централен офис</div>
+          <div class="contact-card-value" data-i18n-html="contacts-office-value">гр. Бургас, ул. Сердика<br>бл. 2Б, ет. 3, офис 1</div>
         </div>
         <div class="contact-card">
-          <div class="contact-card-label">Имейл</div>
+          <div class="contact-card-label" data-i18n="contacts-email-label">Имейл</div>
           <div class="contact-card-value">
             <a href="mailto:office@kyokushinkan.bg">office@kyokushinkan.bg</a>
           </div>
         </div>
       </div>
 
-      <div class="contact-card" style="margin-bottom:32px;">
-        <div class="contact-card-label">Последвайте ни</div>
-        <div class="socials-row" style="margin-top:16px;">
-          <a class="social-link" href="https://www.facebook.com/profile.php?id=61554673094841" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg" alt="Facebook"> Facebook
+      <div class="contact-card">
+        <div class="contact-card-label" data-i18n="contacts-follow-label">Последвайте ни</div>
+        <div class="socials-row">
+          <a class="social-link" href="https://www.facebook.com/profile.php?id=61554673094841" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg" alt=""> Facebook
           </a>
-          <a class="social-link" href="https://www.instagram.com/bfkyokushinkan/" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"> Instagram
+          <a class="social-link" href="https://www.instagram.com/bfkyokushinkan/" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt=""> Instagram
           </a>
-          <a class="social-link" href="https://youtube.com/@bulgarianfederationkyokush1273" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube"> YouTube
+          <a class="social-link" href="https://youtube.com/@bulgarianfederationkyokush1273" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt=""> YouTube
           </a>
-          <a class="social-link" href="https://www.tiktok.com/@bfk_kan" target="_blank">
-            <img src="https://similarpng.com/_next/image?url=https%3A%2F%2Fimage.similarpng.com%2Ffile%2Fsimilarpng%2Fvery-thumbnail%2F2020%2F10%2FTiktok-of-social-media-icon-logo-on-transparent-PNG.png&w=256&q=75" alt="TikTok"> TikTok
+          <a class="social-link" href="https://www.tiktok.com/@bfk_kan" target="_blank" rel="noopener noreferrer">
+            <img src="https://similarpng.com/_next/image?url=https%3A%2F%2Fimage.similarpng.com%2Ffile%2Fsimilarpng%2Fvery-thumbnail%2F2020%2F10%2FTiktok-of-social-media-icon-logo-on-transparent-PNG.png&w=256&q=75" alt=""> TikTok
           </a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ── ИСТОРИЯ ── -->
+  <!-- ИСТОРИЯ -->
   <div class="section" id="history">
     <div class="section-inner">
-      <div class="section-eyebrow">Корени и традиция</div>
-      <h2 class="section-title">История</h2>
+      <div class="section-eyebrow" data-i18n="history-eyebrow">Корени и традиция</div>
+      <h1 class="section-title" data-i18n="history-title">История</h1>
 
       <div class="history-part">
-        <div class="history-part-title">Сосай Масутацу Ояма — основателят на Киокушин</div>
-        <p>„Сосай" (Основател) Ояма е роден в Корея през 1923 г. и става основател на най-известния и разпространен в света стил карате. От 9-годишна възраст учи китайско Кенпо в Манчурия и по-късно практикува Джудо и бокс. Това го кара да започне да практикува окинавско карате, което в основата си служи като трамплин за създаването на негов собствен стил – Киокушин или „Върховната истина". Когато става на 20 години Ояма вече е получил 4-ти дан по окинавско карате и също придобива 4-ти дан в Джудо.</p>
-        <p>Между многото си постижения, може би най-известното е въвеждането на „тамешивари" или чупене на камък. Ояма доказва, че чрез здрави тренировки той може да направи ръцете си мощни като чук. Тази невероятна сила той пренася директно в неговата теория на бойно карате, заключавайки, че ако някой може да чупи камъни, то също и човешките кости биха се чупили при неговите удари. Голям негов принос към карате изобщо е въвеждането и популяризирането на бойната форма в пълен контакт.</p>
-        <p>Ояма печели най-големия турнир в Япония, спонсориран от окинавското Шотокан карате. Той често бива санкциониран за това, че се бие прекалено твърдо, което води до чести контузии на неговите опоненти. Все пак, Ояма вярва, че карате е бойно изкуство и без да се стигне до неговите крайности, човек никога не би разбрал истинския духовен потенциал на карате.</p>
-        <p>Раздразнен от обществената опозиция срещу растящата му сила, на 23 години се оттегля в далечно място в планините с амбицията да тренира повече часове дневно отколкото прекарва в сън, за три години. През този период той тренира като удря планински дървета с голи юмруци, докато те изсъхват и умират. Повдига двойно по-голяма тежест от неговите килограми стотици пъти дневно, медитира под леденостудени водопади, а през нощта се бори с демоните на острия студ и изолацията.</p>
-        <p>На 27 години, убеден, че не би могъл да намери друг боец в Япония, който да му съперничи, Ояма поставя началото на своите известни борби с бикове, за да докаже силата си. В един прочут двубой пред камера, той се борил с бик на плажа в продължение на 45 минути. Накрая бикът се изморил, а Ояма отрязал един от роговете му с неговия „шуто".</p>
-        <p>Мас Ояма открива своето първо доджо в Икебукуро, Токио на 30 години и го нарича „Ояма Доджо." Тук той прилага всичко научено от различните стилове и създава нов стил карате, който нарича Киокушин. През 1964 г., ново доджо в Икебукуро става световния щаб на Международната Карате Организация Киокушинкайкан, която има над 12 милиона члена в 133 страни по времето, когато той си отива от този свят на 26 April 1994 г.</p>
+        <div class="history-part-title" data-i18n="hist-part1-title">Сосай Масутацу Ояма — основателят на Киокушин</div>
+        <p data-i18n-html="hist-1-p1">„Сосай" (Основател) Ояма е роден в Корея през 1923 г. и става основател на най-известния и разпространен в света стил карате. От 9-годишна възраст учи китайско Кенпо в Манчурия и по-късно практикува Джудо и бокс. Това го кара да започне да практикува окинавско карате, което в основата си служи като трамплин за създаването на негов собствен стил – Киокушин или „Върховната истина". Когато става на 20 години Ояма вече е получил 4-ти дан по окинавско карате и също придобива 4-ти дан в Джудо.</p>
+        <p data-i18n-html="hist-1-p2">Между многото си постижения, може би най-известното е въвеждането на „тамешивари" или чупене на камък. Ояма доказва, че чрез здрави тренировки той може да направи ръцете си мощни като чук. Тази невероятна сила той пренася директно в неговата теория на бойно карате, заключавайки, че ако някой може да чупи камъни, то също и човешките кости биха се чупили при неговите удари. Голям негов принос към карате изобщо е въвеждането и популяризирането на бойната форма в пълен контакт.</p>
+        <p data-i18n-html="hist-1-p3">Ояма печели най-големия турнир в Япония, спонсориран от окинавското Шотокан карате. Той често бива санкциониран за това, че се бие прекалено твърдо, което води до чести контузии на неговите опоненти. Все пак, Ояма вярва, че карате е бойно изкуство и без да се стигне до неговите крайности, човек никога не би разбрал истинския духовен потенциал на карате.</p>
+        <p data-i18n-html="hist-1-p4">Раздразнен от обществената опозиция срещу растящата му сила, на 23 години се оттегля в далечно място в планините с амбицията да тренира повече часове дневно отколкото прекарва в сън, за три години. През този период той тренира като удря планински дървета с голи юмруци, докато те изсъхват и умират. Повдига двойно по-голяма тежест от неговите килограми стотици пъти дневно, медитира под леденостудени водопади, а през нощта се бори с демоните на острия студ и изолацията.</p>
+        <p data-i18n-html="hist-1-p5">На 27 години, убеден, че не би могъл да намери друг боец в Япония, който да му съперничи, Ояма поставя началото на своите известни борби с бикове, за да докаже силата си. В един прочут двубой пред камера, той се борил с бик на плажа в продължение на 45 минути. Накрая бикът се изморил, а Ояма отрязал един от роговете му с неговия „шуто".</p>
+        <p data-i18n-html="hist-1-p6">Мас Ояма открива своето първо доджо в Икебукуро, Токио на 30 години и го нарича „Ояма Доджо." Тук той прилага всичко научено от различните стилове и създава нов стил карате, който нарича Киокушин. През 1964 г., ново доджо в Икебукуро става световния щаб на Международната Карате Организация Киокушинкайкан, която има над 12 милиона члена в 133 страни по времето, когато той си отива от този свят на 26 April 1994 г.</p>
       </div>
 
       <div class="history-part">
-        <div class="history-part-title">Канчо Хацуо Рояма и Киокушин-кан</div>
-        <p>"Канчо" (Председател) Хацуо Рояма е роден в Сйата, на север от Токио, през 1948 г. Вдъхновен от бумът в популярността на известни бойци и борци, той отива в Икебукуро на 15-годишна възраст и се присъединява към легендарното „Ояма Доджо". Рояма се оказва един от малкото ученици, които са толкова приближени на организацията от нейното начало, чак до смъртта на Ояма през 1994 г.</p>
-        <p>Рояма става известен на 25-годишна възраст, когато става шампион на 5-ия японски Киокушин турнир. На първия открит световен карате турнир през 1975 г. той продължава до историческия финал, където първото място се присъжда на Катсуаки Сато, а Рояма оставя на второ място. На следващия ден след турнира, когато няколко бойци влизат в болница заради контузии, Рояма провежда обичайната си тренировка.</p>
-        <p>Никой, който познава карате Киокушин днес, не би разделил стила от неговия унищожително силен „лоу кик". Не всеки знае, че именно Рояма прави тази техника известна. На ранните световни турнири японците чуват чужденците да викат „Low kick! Low kick!", и тъй като произношението на „R" в японски е близо до „L", те чували „Ro kick! Ro kick!" — вярвайки, че дори чужденците кръстили тази техника на Рояма.</p>
-        <p>Рояма напуска този свят на 3-и август 2026 г.</p>
+        <div class="history-part-title" data-i18n="hist-part2-title">„Канчо" Хацуо Рояма и Киокушин-кан</div>
+        <p data-i18n-html="hist-2-p1">"Канчо" (Председател) Хацуо Рояма е роден в Сйата, на север от Токио, през 1948 г. Вдъхновен от бумът в популярността на известни бойци и борци, той отива в Икебукуро на 15-годишна възраст и се присъединява към легендарното „Ояма Доджо". Рояма се оказва един от малкото ученици, които са толкова приближени на организацията от нейното начало, чак до смъртта на Ояма през 1994 г.</p>
+        <p data-i18n-html="hist-2-p2">Рояма става известен на 25-годишна възраст, когато става шампион на 5-ия японски Киокушин турнир. На първия открит световен карате турнир през 1975 г. той продължава до историческия финал, където първото място се присъжда на Катсуаки Сато, а Рояма оставя на второ място. На следващия ден след турнира, когато няколко бойци влизат в болница заради контузии, Рояма провежда обичайната си тренировка.</p>
+        <p data-i18n-html="hist-2-p3">Никой, който познава карате Киокушин днес, не би разделил стила от неговия унищожително силен „лоу кик". Не всеки знае, че именно Рояма прави тази техника известна. На ранните световни турнири японците чуват чужденците да викат „Low kick! Low kick!", и тъй като произношението на „R" в японски е близо до „L", те чували „Ro kick! Ro kick!" — вярвайки, че дори чужденците кръстили тази техника на Рояма.</p>
+        <p data-i18n-html="hist-2-p4">Рояма напуска този свят на 3-и август 2026 г.</p>
       </div>
 
       <div class="history-part">
-        <div class="history-part-title">Раждането на Киокушин-кан</div>
-        <p>В десетилетието след смъртта на сосай Ояма, Международната Карате Организация с 12 милиона члена се разделя няколко пъти. През 2002 г. Рояма, заедно с много от неговите приятели и последователи, се отделя и създава нова организация с името Киокушин-кан.</p>
-        <p>Рояма разбира, че новото ръководство е заменило важните елементи — духа на Будо, учтивостта, духа на Осу и добронамереността към хората — с глад за пари и жажда за власт. Решава да възстанови фондацията Киокушин Шогакукай на Ояма, завещана от сосая при смъртта му.</p>
-        <p>В трите години след основаването, над 6 000 японски каратеки се събират в подкрепа на Киокушин-кан в 50 клона из цяла Япония. Още 25 клона са основани по света. Ежегодни турнири за цяла Япония се провеждат в Сайтама, а първият световен открит турнир по карате Киокушин-кан се провежда в Москва през септември 2005 г.</p>
+        <div class="history-part-title" data-i18n="hist-part3-title">Раждането на Киокушин-кан</div>
+        <p data-i18n-html="hist-3-p1">В десетилетието след смъртта на сосай Ояма, Международната Карате Организация с 12 милиона члена се разделя няколко пъти. През 2002 г. Рояма, заедно с много от неговите приятели и последователи, се отделя и създава нова организация с името Киокушин-кан.</p>
+        <p data-i18n-html="hist-3-p2">Рояма разбира, че новото ръководство е заменило важните елементи — духа на Будо, учтивостта, духа на Осу и добронамереността към хората — с глад за пари и жажда за власт. Решава да възстанови фондацията Киокушин Шогакукай на Ояма, завещана от сосая при смъртта му.</p>
+        <p data-i18n-html="hist-3-p3">В трите години след основаването, над 6 000 японски каратеки се събират в подкрепа на Киокушин-кан в 50 клона из цяла Япония. Още 25 клона са основани по света. Ежегодни турнири за цяла Япония се провеждат в Сайтама, а първият световен открит турнир по карате Киокушин-кан се провежда в Москва през септември 2005 г.</p>
       </div>
 
       <div class="history-part">
-        <div class="history-part-title">За Българска Федерация Киокушин-кан</div>
-        <p>Основана през 2021 г. от едни от най-опитните и утвърдени майстори на Киокушин в България — хора, които носят традицията на стила още от първите му години у нас. След дълъг период на организационни предизвикателства и разминавания във визии, групата от ветерани решава да поеме по собствен път, водена от желанието да съхрани духа на истинския будо Киокушин.</p>
-        <p>Този процес напомня на пътя, по който върви Канчо Хацуо Рояма при създаването на международната организация Киокушин-кан — стремеж към възстановяване на техническата чистота, философската дълбочина и моралните принципи, заложени от Масутацу Ояма.</p>
-        <p>Днес Българска Федерация Киокушин-кан обединява клубове и инструктори от цялата страна, развива състезателна и техническа дейност, организира семинари, изпити и национални прояви, и работи за утвърждаването на Киокушин-кан като силна, последователна и честна школа в българските бойни изкуства.</p>
+        <div class="history-part-title" data-i18n="hist-part4-title">За Българска Федерация Киокушин-кан</div>
+        <p data-i18n-html="hist-4-p1">Основана през 2021 г. от едни от най-опитните и утвърдени майстори на Киокушин в България — хора, които носят традицията на стила още от първите му години у нас. След дълъг период на организационни предизвикателства и разминавания във визии, групата от ветерани решава да поеме по собствен път, водена от желанието да съхрани духа на истинския будо Киокушин.</p>
+        <p data-i18n-html="hist-4-p2">Този процес напомня на пътя, по който върви Канчо Хацуо Рояма при създаването на международната организация Киокушин-кан — стремеж към възстановяване на техническата чистота, философската дълбочина и моралните принципи, заложени от Масутацу Ояма.</p>
+        <p data-i18n-html="hist-4-p3">Днес Българска Федерация Киокушин-кан обединява клубове и инструктори от цялата страна, развива състезателна и техническа дейност, организира семинари, изпити и национални прояви, и работи за утвърждаването на Киокушин-кан като силна, последователна и честна школа в българските бойни изкуства.</p>
       </div>
-
     </div>
   </div>
 
 </main>
 
 <footer>
-  <p>©Българска Федерация Киокушин-кан — Всички права запазени.</p>
-  <p>Осу!</p>
-  <p class="footer-credit">Изработка и дизайн: <a href="mailto:tsvetoslav.presolski@gmail.com">Цветослав Пресолски</a></p>
+  <p data-i18n="footer-copy">©Българска Федерация Киокушин-кан — Всички права запазени.</p>
+  <p data-i18n="footer-osu">Осу!</p>
+  <p class="footer-credit" data-i18n-html="footer-credit">Изработка и дизайн: <a href="mailto:tsvetoslav.presolski@gmail.com">Цветослав Пресолски</a></p>
 </footer>
 
 <script>
-  function openSection(id) {
-    document.getElementById('hero').style.display = 'none';
-    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
-    document.querySelectorAll('#navmenu a').forEach(function(a) { a.classList.remove('active'); });
-    document.getElementById(id).classList.add('active');
-    var btn = document.querySelector('#navmenu a[data-s="' + id + '"]');
-    if (btn) btn.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function goHome() {
-    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
-    document.querySelectorAll('#navmenu a').forEach(function(a) { a.classList.remove('active'); });
-    document.getElementById('hero').style.display = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // ── SHARD ANIMATION ──
-  document.getElementById('navmenu').addEventListener('click', function(e) {
-    var btn = e.target.closest('a[data-s]');
-    if (!btn) return;
-    var rect = btn.getBoundingClientRect();
-    var x = e.clientX - rect.left;
-    var y = e.clientY - rect.top;
-    for (var i = 0; i < 18; i++) {
-      (function() {
-        var shard = document.createElement('div');
-        shard.className = 'shard';
-        shard.style.left = x + 'px';
-        shard.style.top  = y + 'px';
-        btn.appendChild(shard);
-        var angle = Math.random() * Math.PI * 2;
-        var dist  = 50 + Math.random() * 90;
-        shard.animate([
-          { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1 },
-          { transform: 'translate(' + (Math.cos(angle)*dist) + 'px,' + (Math.sin(angle)*dist) + 'px) rotate(' + (Math.random()*720-360) + 'deg) scale(0)', opacity: 0 }
-        ], { duration: 600 + Math.random()*400, easing: 'ease-out', fill: 'forwards' })
-          .onfinish = function() { shard.remove(); };
-      })();
-    }
-  });
-
-  // ── TRANSLATION ──
-  var currentLang = 'bg';
-
+  /* ═══════════════════════════════════════
+     TRANSLATIONS
+     ═══════════════════════════════════════ */
   var T = {
-    // ── NAV TITLE
-    'nav-title-line1': { bg: 'Българска Федерация', en: 'Bulgarian Federation' },
-    'nav-title-span':  { bg: 'Киокушин-кан',        en: 'Kyokushin-kan' },
-
-    // ── NAV MENU
-    'nav-news':     { bg: 'Новини',   en: 'News' },
-    'nav-calendar': { bg: 'Календар', en: 'Calendar' },
-    'nav-contacts': { bg: 'Контакти', en: 'Contacts' },
-    'nav-history':  { bg: 'История',  en: 'History' },
-
-    // ── HERO
+    'nav-title-line1':    { bg: 'Българска Федерация', en: 'Bulgarian Federation' },
+    'nav-title-line2':    { bg: 'Киокушин-кан',        en: 'Kyokushin-kan' },
+    'nav-news':           { bg: 'Новини',   en: 'News' },
+    'nav-calendar':       { bg: 'Календар', en: 'Calendar' },
+    'nav-contacts':       { bg: 'Контакти', en: 'Contacts' },
+    'nav-history':        { bg: 'История',  en: 'History' },
     'hero-eyebrow':       { bg: 'Официален уебсайт', en: 'Official Website' },
     'hero-title-line1':   { bg: 'Българска Федерация', en: 'Bulgarian Federation' },
     'hero-title-em':      { bg: 'Киокушин-кан', en: 'Kyokushin-kan' },
     'hero-subtitle':      { bg: 'Духът на Будо. Силата на Осу. Единството на Киокушин.', en: 'The Spirit of Budo. The Power of Osu. The Unity of Kyokushin.' },
 
-    // ── NEWS
-    'news-eyebrow': { bg: 'Последни', en: 'Latest' },
-    'news-title':   { bg: 'Новини',   en: 'News' },
+    'news-eyebrow':  { bg: 'Последни', en: 'Latest' },
+    'news-title':    { bg: 'Новини',   en: 'News' },
 
-    'news-0-p1': {
-      bg: 'Българска федерация Киокушин-кан поздравява Кайчо Рояма за рождения му ден!',
-      en: 'The Bulgarian Kyokushin-kan Federation congratulates Kancho Royama on his birthday!'
-    },
-    'news-0-p2': {
-      bg: 'Пожелаваме му здраве, дълголетие и безкрайна енергия и вдъхновение, за да продължи да развива и разпространява духа на Киокушин по целия свят.',
-      en: 'We wish him health, longevity, and boundless energy and inspiration to continue developing and spreading the spirit of Kyokushin across the world.'
-    },
-    'news-0-p3': {
-      bg: 'Неговият принос към бойните изкуства е безценен и служи за пример на всички нас.',
-      en: 'His contribution to the martial arts is invaluable and serves as an inspiration to all of us.'
-    },
-    'news-0-p4': {
-      bg: 'Нека пътят му бъде изпълнен с успехи, уважение и нови постижения!',
-      en: 'May his path be filled with success, respect, and new achievements!'
-    },
-    'news-0-p5': {
-      bg: 'С дълбоко уважение и признателност.',
-      en: 'With deep respect and gratitude.'
-    },
-    'news-0-p6': {
-      bg: 'Осу!',
-      en: 'Osu!'
-    },
+    'news-0-p1': { bg: 'Българска федерация Киокушин-кан поздравява Кайчо Рояма за рождения му ден!', en: 'The Bulgarian Kyokushin-kan Federation congratulates Kancho Royama on his birthday!' },
+    'news-0-p2': { bg: 'Пожелаваме му здраве, дълголетие и безкрайна енергия и вдъхновение, за да продължи да развива и разпространява духа на Киокушин по целия свят.', en: 'We wish him health, longevity, and boundless energy and inspiration to continue developing and spreading the spirit of Kyokushin across the world.' },
+    'news-0-p3': { bg: 'Неговият принос към бойните изкуства е безценен и служи за пример на всички нас.', en: 'His contribution to the martial arts is invaluable and serves as an inspiration to all of us.' },
+    'news-0-p4': { bg: 'Нека пътят му бъде изпълнен с успехи, уважение и нови постижения!', en: 'May his path be filled with success, respect, and new achievements!' },
+    'news-0-p5': { bg: 'С дълбоко уважение и признателност.', en: 'With deep respect and gratitude.' },
+    'news-0-p6': { bg: 'Осу!', en: 'Osu!' },
 
-    'news-1-p1': {
-      bg: 'На 15-март се проведе първият турнир на БФК в гр. София — Държавно първенство по ката на БФК <strong>„Феникс"</strong> с клуб-домакин "Феникс Люлин". Събитието събра 101 участници от десет града. Конкуренцията сред децата и юношите беше голяма, но от тяхна страна бяха демонстрирани желание и качества, включително и сред тези, които се явиха за първи път.',
-      en: 'On March 15th, the first BFK tournament in Sofia took place — the BFK National Kata Championship <strong>"Phoenix"</strong>, hosted by "Phoenix Lyulin" club. The event gathered 101 participants from ten cities. Competition among children and youth was fierce, and they demonstrated great will and skill, including those who competed for the very first time.'
-    },
-    'news-1-p2': {
-      bg: 'Поздравления към всички участници за отдадеността, дисциплината и смелостта на най-малките да се включат в тази специфична и трудна дисциплина!',
-      en: 'Congratulations to all participants for their dedication, discipline, and the courage of the youngest competitors to take part in this demanding discipline!'
-    },
-    'news-2-p1': {
-      bg: 'На 14-и и 15-и февруари в гр. Атина шихан Николай Рачев и сенпай Свилен Биков представиха Българска Федерация Киокушин-кан в международен семинар, воден от шихан Брандън Денито (Швеция), който проведе интензивни технически занимания, работа върху кихон, ката и кумите, както и задълбочени разяснения върху принципите и философията на киокушин.',
-      en: 'On February 14–15 in Athens, Shihan Nikolay Rachev and Sempai Svilen Bikov represented the Bulgarian Kyokushin-kan Federation at an international seminar led by Shihan Brandon Denito (Sweden), who conducted intensive technical sessions covering kihon, kata and kumite, as well as in-depth explanations of Kyokushin principles and philosophy.'
-    },
-    'news-2-p2': {
-      bg: 'Шихан Николай Рачев активно участва в тренировъчния процес и обмена на международен опит с представители на киокушин-кан от Гърция, Германия, Израел и Холандия. Подобни събития затвърждават връзките между организациите и развиват единството в семейството на Kyokushin-kan International.',
-      en: 'Shihan Nikolay Rachev actively participated in the training process and exchanged international experience with representatives from Greece, Germany, Israel and the Netherlands. Such events strengthen inter-organizational bonds and foster unity within the Kyokushin-kan International family.'
-    },
-    'news-2-p3': {
-      bg: 'Поздравления към всички участници за отдадеността, дисциплината и бойния дух!',
-      en: 'Congratulations to all participants for their dedication, discipline and fighting spirit!'
-    },
-    'news-3-p1': {
-      bg: 'На 7-и и 8-и февруари 2026 г. в Тунис шихан Николай Рачев и шихан Андреян Иванов имаха възможността да предадат умения, знания и опит на трениращите карате Киокушин-кан — с уникално съчетание на древна история, богата култура и средиземноморски дух! Това е голямо признание за майсторските умения и силния боен дух на ръководителите на Българска Федерация Киокушин-кан!',
-      en: 'On February 7–8, 2026 in Tunisia, Shihan Nikolay Rachev and Shihan Andreyan Ivanov had the opportunity to share their skills, knowledge and experience with Kyokushin-kan karate practitioners — in a unique blend of ancient history, rich culture and Mediterranean spirit! This is a great recognition of the mastery and fighting spirit of the Bulgarian Kyokushin-kan Federation\'s leadership!'
-    },
-    'news-3-p2': {
-      bg: 'Пожелаваме им успех и нека да се насладят между тренировките на вдъхновяваща атмосфера между Средиземно море и пустинята Сахара!',
-      en: 'We wish them great success and hope they enjoy the inspiring atmosphere between the Mediterranean Sea and the Sahara Desert during breaks from training!'
-    },
-    'news-6-p1': {
-      bg: 'На 26-и април 2026 г. в гр. Габрово, в зала „Орловец", се проведе Държавното първенство по Киокушин-кан за всички възрасти във формат кумите. Събитието събра десетки клубове и състезатели от цялата страна, които демонстрираха висок боен дух, отлична подготовка и уважение към традициите на киокушин.',
-      en: 'On 26 April 2026, in Gabrovo at the Orlovets sports hall, the National Kyokushin-kan Kumite Championship for all age categories took place. The event brought together dozens of clubs and competitors from across the country, who demonstrated outstanding fighting spirit, excellent preparation and deep respect for the traditions of kyokushin.'
-    },
-    'news-6-p2': {
-      bg: 'Специален акцент на първенството беше отбелязването на 40 години Киокушин карате в гр. Габрово, за което основен принос има шихан Андреян Иванов.',
-      en: 'A special highlight of the championship was the celebration of 40 years of Kyokushin karate in Gabrovo, to which Shihan Andreyan Ivanov has made the greatest contribution.'
-    },
-    'news-6-p3': {
-      bg: 'Поздравяваме всички участници за отдадеността и упорития труд! Готови сме за нови предизвикателства и нови победи! Следващата спирка на нашето пътешествие по пътя на Киокушин-кан карате е още по-близо — гр. Бургас, 27–28.06.2026 г.!',
-      en: 'Congratulations to all participants for their dedication and hard work! We are ready for new challenges and new victories! The next stop on our journey along the path of Kyokushin-kan karate is just around the corner — Burgas, 27–28 June 2026!'
-    },
-    'news-6-p4': {
-      bg: 'Държавното първенство в гр. Габрово беше важен тест за състезатели, треньори и съдии преди предстоящото Открито европейско първенство в гр. Бургас през юни! Това събитие ни даде ценни уроци и вдъхновение, за да се подготвим още по-добре за предстоящите предизвикателства на международната сцена!',
-      en: 'The National Championship in Gabrovo was a crucial test for competitors, coaches and referees ahead of the upcoming Open European Championship in Burgas in June! This event provided us with valuable lessons and inspiration to prepare even better for the challenges that lie ahead on the international stage!'
-    },
+    'news-1-p1': { bg: 'На 15-март се проведе първият турнир на БФК в гр. София — Държавно първенство по ката на БФК <strong>„Феникс"</strong> с клуб-домакин "Феникс Люлин". Събитието събра 101 участници от десет града. Конкуренцията сред децата и юношите беше голяма, но от тяхна страна бяха демонстрирани желание и качества, включително и сред тези, които се явиха за първи път.', en: 'On March 15th, the first BFK tournament in Sofia took place — the BFK National Kata Championship <strong>"Phoenix"</strong>, hosted by "Phoenix Lyulin" club. The event gathered 101 participants from ten cities. Competition among children and youth was fierce, and they demonstrated great will and skill, including those who competed for the very first time.' },
+    'news-1-p2': { bg: 'Поздравления към всички участници за отдадеността, дисциплината и смелостта на най-малките да се включат в тази специфична и трудна дисциплина!', en: 'Congratulations to all participants for their dedication, discipline, and the courage of the youngest competitors to take part in this demanding discipline!' },
 
-    'news-7-p1': {
-      bg: 'Летният технически лагер по Карате Киокушин-кан в Приморско приключи!',
-      en: 'The Summer Technical Camp of Kyokushin Karate in Primorsko has come to an end!'
-    },
-    'news-7-p2': {
-      bg: 'След дни, изпълнени с усилени тренировки, нови знания, дисциплина, приятелства и незабравими емоции, нашият летен технически лагер достигна своя край.',
-      en: 'After days full of intensive training, new knowledge, discipline, friendships and unforgettable emotions, our summer technical camp has reached its conclusion.'
-    },
-    'news-7-p3': {
-      bg: '130 бойци се явиха на изпит за повишаване на своите степени. Изпитът включваше кихон, идо-гейко, ката, физически тест и спаринги, като всеки участник трябваше да покаже техника, дисциплина, дух и издръжливост.',
-      en: '130 fighters took the examination to advance their ranks. The exam included kihon, ido-geiko, kata, a physical test and sparring, with each participant required to demonstrate technique, discipline, spirit and endurance.'
-    },
-    'news-7-p4': {
-      bg: 'Изпитната комисия внимателно наблюдаваше и оценяваше изпълнението на всички кандидати. Резултатите бяха обявени на сутрешната тренировка, а успешно издържалите получиха своите сертификати за новата степен.',
-      en: 'The examination board carefully observed and evaluated the performance of all candidates. Results were announced during the morning training session, and those who passed received their certificates for their new rank.'
-    },
-    'news-7-p5': {
-      bg: 'Благодарим на всички участници за старанието, постоянството и бойния дух, които показаха във всяка тренировка. Гордеем се с вашето желание да се развивате и да преодолявате собствените си граници.',
-      en: 'We thank all participants for the effort, perseverance and fighting spirit they showed in every training session. We are proud of your desire to grow and push past your own limits.'
-    },
-    'news-7-p6': {
-      bg: 'Благодарим на инструкторите за професионализма, търпението и отдадеността, както и на всички родители за доверието и подкрепата. Освен усилената подготовка, лагерът ни подари много усмивки, нови приятелства и прекрасни спомени край морето, които ще останат с нас дълго време.',
-      en: 'We thank the instructors for their professionalism, patience and dedication, as well as all the parents for their trust and support. Beyond the intensive training, the camp gave us many smiles, new friendships and wonderful memories by the sea that will stay with us for a long time.'
-    },
-    'news-7-p7': {
-      bg: 'Пожелаваме на всички успешно лято, много здраве и мотивация! Продължавайте да тренирате, защото пътят на карате е път на непрекъснато усъвършенстване.',
-      en: 'We wish everyone a successful summer, good health and motivation! Keep training, because the path of karate is a path of continuous improvement.'
-    },
+    'news-2-p1': { bg: 'На 14-и и 15-и февруари в гр. Атина шихан Николай Рачев и сенпай Свилен Биков представиха Българска Федерация Киокушин-кан в международен семинар, воден от шихан Брандън Денито (Швеция), който проведе интензивни технически занимания, работа върху кихон, ката и кумите, както и задълбочени разяснения върху принципите и философията на киокушин.', en: 'On February 14–15 in Athens, Shihan Nikolay Rachev and Sempai Svilen Bikov represented the Bulgarian Kyokushin-kan Federation at an international seminar led by Shihan Brandon Denito (Sweden), who conducted intensive technical sessions covering kihon, kata and kumite, as well as in-depth explanations of Kyokushin principles and philosophy.' },
+    'news-2-p2': { bg: 'Шихан Николай Рачев активно участва в тренировъчния процес и обмена на международен опит с представители на киокушин-кан от Гърция, Германия, Израел и Холандия. Подобни събития затвърждават връзките между организациите и развиват единството в семейството на Kyokushin-kan International.', en: 'Shihan Nikolay Rachev actively participated in the training process and exchanged international experience with representatives from Greece, Germany, Israel and the Netherlands. Such events strengthen inter-organizational bonds and foster unity within the Kyokushin-kan International family.' },
+    'news-2-p3': { bg: 'Поздравления към всички участници за отдадеността, дисциплината и бойния дух!', en: 'Congratulations to all participants for their dedication, discipline and fighting spirit!' },
 
-    'news-12-p1': {
-      bg: 'С дълбока тъга всички ръководители и членове на Българска Федерация Киокушин-кан приехме новината за кончината на Кайчо Хацуо Рояма – един изключителен учител и човек, оставил незаличима следа в световните бойни изкуства и развитието на киокушин карате.',
-      en: 'With deep sorrow, all leaders and members of the Bulgarian Kyokushin-kan Federation received the news of the passing of Kaicho Hatsuo Royama – an extraordinary teacher and a man who left an indelible mark on world martial arts and on the development of Kyokushin karate.'
-    },
-    'news-12-p2': {
-      bg: 'За нас е чест да бъдем част от голямото семейство на Киокушин-кан на Кайчо Рояма да черпим знания и вдъхновение от неговото дело.',
-      en: 'It is an honor for us to be part of the great Kyokushin-kan family of Kaicho Royama, drawing knowledge and inspiration from his life\u2019s work.'
-    },
-    'news-12-p3': {
-      bg: 'Българска федерация Киокушин-кан изразява своите най-искрени съболезнования към семейството, близките, учениците му и цялата международна общност на Киокушин-кан.',
-      en: 'The Bulgarian Kyokushin-kan Federation extends its most sincere condolences to his family, loved ones, students, and the entire international Kyokushin-kan community.'
-    },
-    'news-12-p4': {
-      bg: 'Кайчо Рояма посвети живота си на развитието и съхраняването на духа на Киокушин. Със своята отдаденост, сила на характера, мъдрост и безкомпромисен стремеж към съвършенство той вдъхнови поколения каратеки по целия свят.',
-      en: 'Kaicho Royama devoted his life to developing and preserving the spirit of Kyokushin. Through his dedication, strength of character, wisdom, and uncompromising pursuit of perfection, he inspired generations of karatekas around the world.'
-    },
-    'news-12-p5': {
-      bg: 'Благодарим му за всичко, което направи за развитието на киокушин карате в България, за ценностите, които остави след себе си, за наследството, което ще продължи да живее във всеки един, който е поел по Пътя на Киокушин-кан карате.',
-      en: 'We thank him for everything he did for the development of Kyokushin karate in Bulgaria, for the values he left behind, and for the legacy that will continue to live on in everyone who has walked the Path of Kyokushin-kan karate.'
-    },
-    'news-12-p6': {
-      bg: 'Поклон пред светлата му памет!',
-      en: 'We bow in reverence to his memory.'
-    },
-    'news-12-p7': {
-      bg: 'Осу!',
-      en: 'Osu!'
-    },
+    'news-3-p1': { bg: 'На 7-и и 8-и февруари 2026 г. в Тунис шихан Николай Рачев и шихан Андреян Иванов имаха възможността да предадат умения, знания и опит на трениращите карате Киокушин-кан — с уникално съчетание на древна история, богата култура и средиземноморски дух! Това е голямо признание за майсторските умения и силния боен дух на ръководителите на Българска Федерация Киокушин-кан!', en: 'On February 7–8, 2026 in Tunisia, Shihan Nikolay Rachev and Shihan Andreyan Ivanov had the opportunity to share their skills, knowledge and experience with Kyokushin-kan karate practitioners — in a unique blend of ancient history, rich culture and Mediterranean spirit! This is a great recognition of the mastery and fighting spirit of the Bulgarian Kyokushin-kan Federation\'s leadership!' },
+    'news-3-p2': { bg: 'Пожелаваме им успех и нека да се насладят между тренировките на вдъхновяваща атмосфера между Средиземно море и пустинята Сахара!', en: 'We wish them great success and hope they enjoy the inspiring atmosphere between the Mediterranean Sea and the Sahara Desert during breaks from training!' },
 
-    'news-8-p1': {
-      bg: 'Дадохме началото на Петия летен технически лагер по Карате Киокушин-кан в Приморско!',
-      en: 'We kicked off the Fifth Summer Technical Camp of Kyokushin Karate in Primorsko!'
-    },
-    'news-8-p2': {
-      bg: 'Предстоят дни, изпълнени с усилени тренировки, усъвършенстване на техниката, дисциплина, нови знания и незабравими емоции. Лагерът е възможност всеки участник да надгради уменията си, да се предизвика и да изгради още по-силен дух.',
-      en: 'Ahead lie days full of intensive training, technical refinement, discipline, new knowledge and unforgettable emotions. The camp is an opportunity for every participant to build on their skills, challenge themselves and forge an even stronger spirit.'
-    },
-    'news-8-p3': {
-      bg: 'Освен усилената подготовка, ни очакват много усмивки, приятелства и споделени моменти край морето, които ще останат незабравим спомен за всички.',
-      en: 'Alongside the rigorous preparation, plenty of smiles, friendships and shared moments by the sea await us — moments that will remain unforgettable memories for everyone.'
-    },
-    'news-8-p4': {
-      bg: 'Пожелаваме успех на всички каратеки, здраве, силен дух и ползотворни тренировки!',
-      en: 'We wish all the karatekas success, good health, a strong spirit and productive training sessions!'
-    },
+    'news-4-p1': { bg: 'На 10-и и 11-и януари в гр. Стара Загора се проведе общо събрание на федерацията. Беше уточнен спортния календар за 2026 г., като най-значимото мероприятие ще бъде <strong>Европейското първенство</strong>, на което БФК ще е домакин в Бургас.', en: 'On January 10–11 in Stara Zagora, the federation\'s general assembly took place. The 2026 sports calendar was finalized, with the most significant event being the <strong>European Championship</strong>, hosted by BFK in Burgas.' },
+    'news-4-p2': { bg: 'Сенсей Георги Георгиев от гр. Ямбол беше награден с плакет от Шихан Николай Рачев и получи признание за треньор на годината за постигнатото 3-то място на Световното първенство в Токио от Ивеслав Маринов.', en: 'Sensei Georgi Georgiev from Yambol was awarded a plaque by Shihan Nikolay Rachev and recognized as Coach of the Year for the 3rd place achieved at the World Championship in Tokyo by Iveslav Marinov.' },
 
-    'news-9-p1': {
-      bg: 'Двудневният европейски семинар за инструктори на Киокушин-кан и изпитът за придобиване на степен приключиха успешно!',
-      en: 'The two-day European seminar for Kyokushin-kan instructors and the belt grading examination have successfully concluded!'
-    },
-    'news-9-p2': {
-      bg: 'Инструктори и ученици от цяла Европа тренираха с голям ентусиазъм, което превърна събитието в наистина значима възможност за задълбочаване не само на техническите им умения, но и на разбирането им за духа на будо.',
-      en: 'Instructors and students from across Europe trained with great enthusiasm, making the event a truly meaningful opportunity to deepen not only their technical skills but also their understanding of the spirit of budo.'
-    },
-    'news-9-p3': {
-      bg: 'По време на изпита за придобиване на степен резултатите от семинара бяха ясно видими, а искреното отношение и всеотдайността на всеки кандидат оставиха силно впечатление.',
-      en: 'During the grading examination, the results of the seminar were clearly visible, and the sincere attitude and dedication of each candidate left a strong impression.'
-    },
+    'news-5-p1': { bg: 'Силно представяне на българските състезатели беляза дебютното издание на THE 1st POLISH–EUROPEAN CHAMPIONSHIP WKO, където бойците на Българска Федерация Киокушин-кан завоюваха общо седем медала в дисциплините кумите и ката.', en: 'A strong performance by Bulgarian competitors marked the debut edition of THE 1st POLISH–EUROPEAN CHAMPIONSHIP WKO, where the fighters of the Bulgarian Kyokushin-kan Federation claimed a total of seven medals in the kumite and kata disciplines.' },
+    'news-5-p2': { bg: 'Отлично представяне записаха:<br><br>👏 <strong>Евгени Георгиев</strong>, СКК Киокушин – Ямбол<br>🥈 2-ро място кумите<br>🥈 2-ро място ката<br><br>👏 <strong>Павлина Илиева</strong>, СКК Киокушин – Ямбол<br>🥈 2-ро място кумите<br><br>👏 <strong>Ариана Михалева</strong>, СКК Киокушин – Ямбол<br>🥉 3-то място кумите<br>🥉 3-то място ката<br><br>👏 <strong>Надежда Балчева</strong>, СКК Киокушин – Габрово<br>🥈 2-ро място кумите<br>🥉 3-то място ката', en: 'Outstanding results were achieved by:<br><br>👏 <strong>Evgeni Georgiev</strong>, SKK Kyokushin – Yambol<br>🥈 2nd place kumite<br>🥈 2nd place kata<br><br>👏 <strong>Pavlina Ilieva</strong>, SKK Kyokushin – Yambol<br>🥈 2nd place kumite<br><br>👏 <strong>Ariana Mihaleva</strong>, SKK Kyokushin – Yambol<br>🥉 3rd place kumite<br>🥉 3rd place kata<br><br>👏 <strong>Nadezhda Balcheva</strong>, SKK Kyokushin – Gabrovo<br>🥈 2nd place kumite<br>🥉 3rd place kata' },
+    'news-5-p3': { bg: 'Състезателите и техните треньори показаха висока подготовка, дисциплина и боен дух, които донесоха заслужено признание на международната сцена.', en: 'The competitors and their coaches demonstrated exceptional preparation, discipline and fighting spirit, earning well-deserved recognition on the international stage.' },
+    'news-5-p4': { bg: 'Поздравления за медалистите и техните наставници – вашият труд е истинско вдъхновение за цялата Киокушин общност!', en: 'Congratulations to the medallists and their coaches — your dedication is a true inspiration to the entire Kyokushin community!' },
 
-    'news-10-p1': {
-      bg: 'С успешно проведения финален ден завърши Отвореното европейско първенство по карате Киокушин-кан, проведено в прекрасния град Бургас!',
-      en: 'The Open European Kyokushin-kan Karate Championship, held in the beautiful city of Burgas, concluded successfully with a triumphant final day!'
-    },
-    'news-10-p2': {
-      bg: 'Изказваме своята искрена благодарност към всички състезатели, които демонстрираха спортен дух, воля и майсторство, към треньорите за тяхната всеотдайност, както и към съдиите, реферите и официалните лица за професионализма и безупречната организация на състезанието.',
-      en: 'We extend our sincere gratitude to all the competitors who showed sportsmanship, willpower and mastery, to the coaches for their dedication, and to the judges, referees and officials for their professionalism and flawless organization of the tournament.'
-    },
-    'news-10-p3': {
-      bg: 'Специални благодарности отправяме към Община Бургас за подкрепата и съдействието при организирането на това престижно спортно събитие. Благодарим и на всички, които направиха церемонията по закриването още по-вълнуваща и запомняща се:<br><br>• Общински професионален фолклорен ансамбъл „Странджа" с ръководител Марио Егов за великолепното фолклорно изпълнение.<br><br>• Малките шампиони от клуб по художествена гимнастика „Черноморец" с треньор Мария Калангерова за красивото и вдъхновяващо представяне.<br><br>• Клуб „Хикари" и сенсей Вели Аслан за впечатляващата демонстрация на традиционно японско джу джутсу, както и на Шихан Масахиде Ишиджима за вдъхновяващата демонстрация, която беше истинска чест за всички присъстващи.',
-      en: 'Special thanks go to the Municipality of Burgas for its support and cooperation in organizing this prestigious sporting event. We also thank everyone who made the closing ceremony even more exciting and memorable:<br><br>• The Municipal Professional Folklore Ensemble "Strandzha," led by Mario Egov, for their magnificent folklore performance.<br><br>• The young champions from the "Chernomorets" rhythmic gymnastics club, coached by Maria Kalangerova, for their beautiful and inspiring performance.<br><br>• The "Hikari" club and Sensei Veli Aslan for their impressive demonstration of traditional Japanese jiu-jitsu, as well as Shihan Masahide Ishijima for his inspiring demonstration, which was a true honor for everyone present.'
-    },
-    'news-10-p4': {
-      bg: 'До нови срещи!',
-      en: 'Until next time!'
-    },
+    'news-6-p1': { bg: 'На 26-и април 2026 г. в гр. Габрово, в зала „Орловец", се проведе Държавното първенство по Киокушин-кан за всички възрасти във формат кумите. Събитието събра десетки клубове и състезатели от цялата страна, които демонстрираха висок боен дух, отлична подготовка и уважение към традициите на киокушин.', en: 'On 26 April 2026, in Gabrovo at the Orlovets sports hall, the National Kyokushin-kan Kumite Championship for all age categories took place. The event brought together dozens of clubs and competitors from across the country, who demonstrated outstanding fighting spirit, excellent preparation and deep respect for the traditions of kyokushin.' },
+    'news-6-p2': { bg: 'Специален акцент на първенството беше отбелязването на 40 години Киокушин карате в гр. Габрово, за което основен принос има шихан Андреян Иванов.', en: 'A special highlight of the championship was the celebration of 40 years of Kyokushin karate in Gabrovo, to which Shihan Andreyan Ivanov has made the greatest contribution.' },
+    'news-6-p3': { bg: 'Поздравяваме всички участници за отдадеността и упорития труд! Готови сме за нови предизвикателства и нови победи! Следващата спирка на нашето пътешествие по пътя на Киокушин-кан карате е още по-близо — гр. Бургас, 27–28.06.2026 г.!', en: 'Congratulations to all participants for their dedication and hard work! We are ready for new challenges and new victories! The next stop on our journey along the path of Kyokushin-kan karate is just around the corner — Burgas, 27–28 June 2026!' },
+    'news-6-p4': { bg: 'Държавното първенство в гр. Габрово беше важен тест за състезатели, треньори и съдии преди предстоящото Открито европейско първенство в гр. Бургас през юни! Това събитие ни даде ценни уроци и вдъхновение, за да се подготвим още по-добре за предстоящите предизвикателства на международната сцена!', en: 'The National Championship in Gabrovo was a crucial test for competitors, coaches and referees ahead of the upcoming Open European Championship in Burgas in June! This event provided us with valuable lessons and inspiration to prepare even better for the challenges that lie ahead on the international stage!' },
 
-    'news-11-p1': {
-      bg: 'Първият ден от Отвореното европейско първенство по Карате Киокушин-кан в град Бургас приключи успешно! Денят беше изпълнен с много емоции, оспорвани двубои, силен спортен дух и достойно представяне на всички състезатели. Благодарим на участниците, треньорите, съдиите, организаторите и публиката, които направиха този ден незабравим!',
-      en: 'The first day of the Open European Kyokushin-kan Karate Championship in Burgas has successfully concluded! The day was filled with strong emotions, hard-fought bouts, great sportsmanship and worthy performances from all competitors. We thank the participants, coaches, referees, organizers and spectators who made this day unforgettable!'
-    },
+    'news-7-p1': { bg: 'Летният технически лагер по Карате Киокушин-кан в Приморско приключи!', en: 'The Summer Technical Camp of Kyokushin Karate in Primorsko has come to an end!' },
+    'news-7-p2': { bg: 'След дни, изпълнени с усилени тренировки, нови знания, дисциплина, приятелства и незабравими емоции, нашият летен технически лагер достигна своя край.', en: 'After days full of intensive training, new knowledge, discipline, friendships and unforgettable emotions, our summer technical camp has reached its conclusion.' },
+    'news-7-p3': { bg: '130 бойци се явиха на изпит за повишаване на своите степени. Изпитът включваше кихон, идо-гейко, ката, физически тест и спаринги, като всеки участник трябваше да покаже техника, дисциплина, дух и издръжливост.', en: '130 fighters took the examination to advance their ranks. The exam included kihon, ido-geiko, kata, a physical test and sparring, with each participant required to demonstrate technique, discipline, spirit and endurance.' },
+    'news-7-p4': { bg: 'Изпитната комисия внимателно наблюдаваше и оценяваше изпълнението на всички кандидати. Резултатите бяха обявени на сутрешната тренировка, а успешно издържалите получиха своите сертификати за новата степен.', en: 'The examination board carefully observed and evaluated the performance of all candidates. Results were announced during the morning training session, and those who passed received their certificates for their new rank.' },
+    'news-7-p5': { bg: 'Благодарим на всички участници за старанието, постоянството и бойния дух, които показаха във всяка тренировка. Гордеем се с вашето желание да се развивате и да преодолявате собствените си граници.', en: 'We thank all participants for the effort, perseverance and fighting spirit they showed in every training session. We are proud of your desire to grow and push past your own limits.' },
+    'news-7-p6': { bg: 'Благодарим на инструкторите за професионализма, търпението и отдадеността, както и на всички родители за доверието и подкрепата. Освен усилената подготовка, лагерът ни подари много усмивки, нови приятелства и прекрасни спомени край морето, които ще останат с нас дълго време.', en: 'We thank the instructors for their professionalism, patience and dedication, as well as all the parents for their trust and support. Beyond the intensive training, the camp gave us many smiles, new friendships and wonderful memories by the sea that will stay with us for a long time.' },
+    'news-7-p7': { bg: 'Пожелаваме на всички успешно лято, много здраве и мотивация! Продължавайте да тренирате, защото пътят на карате е път на непрекъснато усъвършенстване.', en: 'We wish everyone a successful summer, good health and motivation! Keep training, because the path of karate is a path of continuous improvement.' },
 
-    'news-5-p1': {
-      bg: 'Силно представяне на българските състезатели беляза дебютното издание на THE 1st POLISH–EUROPEAN CHAMPIONSHIP WKO, където бойците на Българска Федерация Киокушин-кан завоюваха общо седем медала в дисциплините кумите и ката.',
-      en: 'A strong performance by Bulgarian competitors marked the debut edition of THE 1st POLISH–EUROPEAN CHAMPIONSHIP WKO, where the fighters of the Bulgarian Kyokushin-kan Federation claimed a total of seven medals in the kumite and kata disciplines.'
-    },
-    'news-5-p2': {
-      bg: 'Отлично представяне записаха:<br><br>👏 <strong>Евгени Георгиев</strong>, СКК Киокушин – Ямбол<br>🥈 2-ро място кумите<br>🥈 2-ро място ката<br><br>👏 <strong>Павлина Илиева</strong>, СКК Киокушин – Ямбол<br>🥈 2-ро място кумите<br><br>👏 <strong>Ариана Михалева</strong>, СКК Киокушин – Ямбол<br>🥉 3-то място кумите<br>🥉 3-то място ката<br><br>👏 <strong>Надежда Балчева</strong>, СКК Киокушин – Габрово<br>🥈 2-ро място кумите<br>🥉 3-то място ката',
-      en: 'Outstanding results were achieved by:<br><br>👏 <strong>Evgeni Georgiev</strong>, SKK Kyokushin – Yambol<br>🥈 2nd place kumite<br>🥈 2nd place kata<br><br>👏 <strong>Pavlina Ilieva</strong>, SKK Kyokushin – Yambol<br>🥈 2nd place kumite<br><br>👏 <strong>Ariana Mihaleva</strong>, SKK Kyokushin – Yambol<br>🥉 3rd place kumite<br>🥉 3rd place kata<br><br>👏 <strong>Nadezhda Balcheva</strong>, SKK Kyokushin – Gabrovo<br>🥈 2nd place kumite<br>🥉 3rd place kata'
-    },
-    'news-5-p3': {
-      bg: 'Състезателите и техните треньори показаха висока подготовка, дисциплина и боен дух, които донесоха заслужено признание на международната сцена.',
-      en: 'The competitors and their coaches demonstrated exceptional preparation, discipline and fighting spirit, earning well-deserved recognition on the international stage.'
-    },
-    'news-5-p4': {
-      bg: 'Поздравления за медалистите и техните наставници – вашият труд е истинско вдъхновение за цялата Киокушин общност!',
-      en: 'Congratulations to the medallists and their coaches — your dedication is a true inspiration to the entire Kyokushin community!'
-    },
+    'news-8-p1': { bg: 'Дадохме началото на Петия летен технически лагер по Карате Киокушин-кан в Приморско!', en: 'We kicked off the Fifth Summer Technical Camp of Kyokushin Karate in Primorsko!' },
+    'news-8-p2': { bg: 'Предстоят дни, изпълнени с усилени тренировки, усъвършенстване на техниката, дисциплина, нови знания и незабравими емоции. Лагерът е възможност всеки участник да надгради уменията си, да се предизвика и да изгради още по-силен дух.', en: 'Ahead lie days full of intensive training, technical refinement, discipline, new knowledge and unforgettable emotions. The camp is an opportunity for every participant to build on their skills, challenge themselves and forge an even stronger spirit.' },
+    'news-8-p3': { bg: 'Освен усилената подготовка, ни очакват много усмивки, приятелства и споделени моменти край морето, които ще останат незабравим спомен за всички.', en: 'Alongside the rigorous preparation, plenty of smiles, friendships and shared moments by the sea await us — moments that will remain unforgettable memories for everyone.' },
+    'news-8-p4': { bg: 'Пожелаваме успех на всички каратеки, здраве, силен дух и ползотворни тренировки!', en: 'We wish all the karatekas success, good health, a strong spirit and productive training sessions!' },
 
-    'news-4-p1': {
-      bg: 'На 10-и и 11-и януари в гр. Стара Загора се проведе общо събрание на федерацията. Беше уточнен спортния календар за 2026 г., като най-значимото мероприятие ще бъде <strong>Европейското първенство</strong>, на което БФК ще е домакин в Бургас.',
-      en: 'On January 10–11 in Stara Zagora, the federation\'s general assembly took place. The 2026 sports calendar was finalized, with the most significant event being the <strong>European Championship</strong>, hosted by BFK in Burgas.'
-    },
-    'news-4-p2': {
-      bg: 'Сенсей Георги Георгиев от гр. Ямбол беше награден с плакет от Шихан Николай Рачев и получи признание за треньор на годината за постигнатото 3-то място на Световното първенство в Токио от Ивеслав Маринов.',
-      en: 'Sensei Georgi Georgiev from Yambol was awarded a plaque by Shihan Nikolay Rachev and recognized as Coach of the Year for the 3rd place achieved at the World Championship in Tokyo by Iveslav Marinov.'
-    },
+    'news-9-p1': { bg: 'Двудневният европейски семинар за инструктори на Киокушин-кан и изпитът за придобиване на степен приключиха успешно!', en: 'The two-day European seminar for Kyokushin-kan instructors and the belt grading examination have successfully concluded!' },
+    'news-9-p2': { bg: 'Инструктори и ученици от цяла Европа тренираха с голям ентусиазъм, което превърна събитието в наистина значима възможност за задълбочаване не само на техническите им умения, но и на разбирането им за духа на будо.', en: 'Instructors and students from across Europe trained with great enthusiasm, making the event a truly meaningful opportunity to deepen not only their technical skills but also their understanding of the spirit of budo.' },
+    'news-9-p3': { bg: 'По време на изпита за придобиване на степен резултатите от семинара бяха ясно видими, а искреното отношение и всеотдайността на всеки кандидат оставиха силно впечатление.', en: 'During the grading examination, the results of the seminar were clearly visible, and the sincere attitude and dedication of each candidate left a strong impression.' },
 
-    // ── CALENDAR
-    'cal-eyebrow':          { bg: 'Спортна програма', en: 'Sports Programme' },
-    'cal-title':            { bg: 'Календар 2026',    en: 'Calendar 2026' },
-    'cal-th-date':          { bg: 'Дата',             en: 'Date' },
-    'cal-th-event':         { bg: 'Събитие',          en: 'Event' },
-    'cal-th-participants':  { bg: 'Участници',        en: 'Participants' },
-    'cal-th-place':         { bg: 'Място',            en: 'Location' },
+    'news-10-p1': { bg: 'С успешно проведения финален ден завърши Отвореното европейско първенство по карате Киокушин-кан, проведено в прекрасния град Бургас!', en: 'The Open European Kyokushin-kan Karate Championship, held in the beautiful city of Burgas, concluded successfully with a triumphant final day!' },
+    'news-10-p2': { bg: 'Изказваме своята искрена благодарност към всички състезатели, които демонстрираха спортен дух, воля и майсторство, към треньорите за тяхната всеотдайност, както и към съдиите, реферите и официалните лица за професионализма и безупречната организация на състезанието.', en: 'We extend our sincere gratitude to all the competitors who showed sportsmanship, willpower and mastery, to the coaches for their dedication, and to the judges, referees and officials for their professionalism and flawless organization of the tournament.' },
+    'news-10-p3': { bg: 'Специални благодарности отправяме към Община Бургас за подкрепата и съдействието при организирането на това престижно спортно събитие. Благодарим и на всички, които направиха церемонията по закриването още по-вълнуваща и запомняща се:<br><br>• Общински професионален фолклорен ансамбъл „Странджа" с ръководител Марио Егов за великолепното фолклорно изпълнение.<br><br>• Малките шампиони от клуб по художествена гимнастика „Черноморец" с треньор Мария Калангерова за красивото и вдъхновяващо представяне.<br><br>• Клуб „Хикари" и сенсей Вели Аслан за впечатляващата демонстрация на традиционно японско джу джутсу, както и на Шихан Масахиде Ишиджима за вдъхновяващата демонстрация, която беше истинска чест за всички присъстващи.', en: 'Special thanks go to the Municipality of Burgas for its support and cooperation in organizing this prestigious sporting event. We also thank everyone who made the closing ceremony even more exciting and memorable:<br><br>• The Municipal Professional Folklore Ensemble "Strandzha," led by Mario Egov, for their magnificent folklore performance.<br><br>• The young champions from the "Chernomorets" rhythmic gymnastics club, coached by Maria Kalangerova, for their beautiful and inspiring performance.<br><br>• The "Hikari" club and Sensei Veli Aslan for their impressive demonstration of traditional Japanese jiu-jitsu, as well as Shihan Masahide Ishijima for his inspiring demonstration, which was a true honor for everyone present.' },
+    'news-10-p4': { bg: 'До нови срещи!', en: 'Until next time!' },
 
-    // Calendar months
+    'news-11-p1': { bg: 'Първият ден от Отвореното европейско първенство по Карате Киокушин-кан в град Бургас приключи успешно! Денят беше изпълнен с много емоции, оспорвани двубои, силен спортен дух и достойно представяне на всички състезатели. Благодарим на участниците, треньорите, съдиите, организаторите и публиката, които направиха този ден незабравим!', en: 'The first day of the Open European Kyokushin-kan Karate Championship in Burgas has successfully concluded! The day was filled with strong emotions, hard-fought bouts, great sportsmanship and worthy performances from all competitors. We thank the participants, coaches, referees, organizers and spectators who made this day unforgettable!' },
+
+    'news-12-p1': { bg: 'С дълбока тъга всички ръководители и членове на Българска Федерация Киокушин-кан приехме новината за кончината на Кайчо Хацуо Рояма – един изключителен учител и човек, оставил незаличима следа в световните бойни изкуства и развитието на киокушин карате.', en: 'With deep sorrow, all leaders and members of the Bulgarian Kyokushin-kan Federation received the news of the passing of Kaicho Hatsuo Royama – an extraordinary teacher and a man who left an indelible mark on world martial arts and on the development of Kyokushin karate.' },
+    'news-12-p2': { bg: 'За нас е чест да бъдем част от голямото семейство на Киокушин-кан на Кайчо Рояма да черпим знания и вдъхновение от неговото дело.', en: 'It is an honor for us to be part of the great Kyokushin-kan family of Kaicho Royama, drawing knowledge and inspiration from his life\u2019s work.' },
+    'news-12-p3': { bg: 'Българска федерация Киокушин-кан изразява своите най-искрени съболезнования към семейството, близките, учениците му и цялата международна общност на Киокушин-кан.', en: 'The Bulgarian Kyokushin-kan Federation extends its most sincere condolences to his family, loved ones, students, and the entire international Kyokushin-kan community.' },
+    'news-12-p4': { bg: 'Кайчо Рояма посвети живота си на развитието и съхраняването на духа на Киокушин. Със своята отдаденост, сила на характера, мъдрост и безкомпромисен стремеж към съвършенство той вдъхнови поколения каратеки по целия свят.', en: 'Kaicho Royama devoted his life to developing and preserving the spirit of Kyokushin. Through his dedication, strength of character, wisdom, and uncompromising pursuit of perfection, he inspired generations of karatekas around the world.' },
+    'news-12-p5': { bg: 'Благодарим му за всичко, което направи за развитието на киокушин карате в България, за ценностите, които остави след себе си, за наследството, което ще продължи да живее във всеки един, който е поел по Пътя на Киокушин-кан карате.', en: 'We thank him for everything he did for the development of Kyokushin karate in Bulgaria, for the values he left behind, and for the legacy that will continue to live on in everyone who has walked the Path of Kyokushin-kan karate.' },
+    'news-12-p6': { bg: 'Поклон пред светлата му памет!', en: 'We bow in reverence to his memory.' },
+    'news-12-p7': { bg: 'Осу!', en: 'Osu!' },
+
+    'cal-eyebrow':         { bg: 'Спортна програма', en: 'Sports Programme' },
+    'cal-title':           { bg: 'Календар 2026',    en: 'Calendar 2026' },
+    'cal-th-date':         { bg: 'Дата',             en: 'Date' },
+    'cal-th-event':        { bg: 'Събитие',          en: 'Event' },
+    'cal-th-participants': { bg: 'Участници',        en: 'Participants' },
+    'cal-th-place':        { bg: 'Място',            en: 'Location' },
+
     'cal-month-jan': { bg: 'ЯНУАРИ',    en: 'JANUARY' },
     'cal-month-feb': { bg: 'ФЕВРУАРИ',  en: 'FEBRUARY' },
     'cal-month-mar': { bg: 'МАРТ',      en: 'MARCH' },
@@ -1232,7 +991,6 @@
     'cal-month-sep': { bg: 'СЕПТЕМВРИ', en: 'SEPTEMBER' },
     'cal-month-oct': { bg: 'ОКТОМВРИ',  en: 'OCTOBER' },
 
-    // Calendar events (event text | participants | location)
     'cal-e1':  { bg: 'Треньорски семинар',                              en: 'Coaching Seminar' },
     'cal-e2':  { bg: 'Лагер-сбор на разширен национален отбор',         en: 'Extended National Team Training Camp' },
     'cal-e3':  { bg: 'Изпити за технически степени',                    en: 'Technical Grade Examinations' },
@@ -1252,306 +1010,251 @@
     'cal-e17': { bg: 'Национална купа „Асенова крепост" — II дивизия',  en: 'National Cup "Asen\'s Fortress" — Division II' },
     'cal-e18': { bg: 'Национална купа „Дияна"',                         en: 'National Cup "Diana"' },
 
-    // Participants
-    'par-coaches':    { bg: 'Треньори, пом. треньори, инструктори',      en: 'Coaches, assistant coaches, instructors' },
-    'par-national':   { bg: 'Проекто-национални състезатели',            en: 'Prospective national team athletes' },
-    'par-to5kyu':     { bg: 'До V кю',                                   en: 'Up to 5th kyu' },
-    'par-commission': { bg: 'Всички членове на комисии; кандидати за изпит I кю, II кю, I дан и II дан', en: 'All committee members; candidates for 1st kyu, 2nd kyu, 1st dan and 2nd dan exam' },
-    'par-referees':   { bg: 'Лицензирани съдии и кандидат-съдии',        en: 'Licensed referees and referee candidates' },
-    'par-all':        { bg: 'Всички възрасти',                           en: 'All ages' },
-    'par-to2dan':     { bg: 'До II дан',                                 en: 'Up to 2nd dan' },
-    'par-refkan':     { bg: 'Съдии Кан',                                 en: 'Kan Referees' },
-    'par-instructors':{ bg: 'Инструктори, пом. треньори, треньори',      en: 'Instructors, assistant coaches, coaches' },
+    'par-coaches':     { bg: 'Треньори, пом. треньори, инструктори',    en: 'Coaches, assistant coaches, instructors' },
+    'par-national':    { bg: 'Проекто-национални състезатели',          en: 'Prospective national team athletes' },
+    'par-to5kyu':      { bg: 'До V кю',                                 en: 'Up to 5th kyu' },
+    'par-commission':  { bg: 'Всички членове на комисии; кандидати за изпит I кю, II кю, I дан и II дан', en: 'All committee members; candidates for 1st kyu, 2nd kyu, 1st dan and 2nd dan exam' },
+    'par-referees':    { bg: 'Лицензирани съдии и кандидат-съдии',      en: 'Licensed referees and referee candidates' },
+    'par-all':         { bg: 'Всички възрасти',                         en: 'All ages' },
+    'par-to2dan':      { bg: 'До II дан',                               en: 'Up to 2nd dan' },
+    'par-refkan':      { bg: 'Съдии Кан',                               en: 'Kan Referees' },
+    'par-instructors': { bg: 'Инструктори, пом. треньори, треньори',    en: 'Instructors, assistant coaches, coaches' },
+    'par-dash':        { bg: '—',                                        en: '—' },
 
-    // Locations
-    'loc-sz':    { bg: 'Стара Загора', en: 'Stara Zagora' },
-    'loc-cities':{ bg: 'По градове',   en: 'Various cities' },
-    'loc-yambol':{ bg: 'Ямбол',        en: 'Yambol' },
-    'loc-sofia': { bg: 'София',        en: 'Sofia' },
-    'loc-gyurg': { bg: 'Гюргево',      en: 'Giurgiu' },
-    'loc-pots':  { bg: 'Потсдам',      en: 'Potsdam' },
-    'loc-gabr':  { bg: 'Габрово',      en: 'Gabrovo' },
-    'loc-burgas':{ bg: 'Бургас',       en: 'Burgas' },
-    'loc-prim':  { bg: 'Приморско',    en: 'Primorsko' },
-    'loc-mont':  { bg: 'Монтана',      en: 'Montana' },
-    'loc-assen': { bg: 'Асеновград',   en: 'Asenovgrad' },
-    'loc-dash':  { bg: '—',            en: '—' },
+    'loc-sz':     { bg: 'Стара Загора', en: 'Stara Zagora' },
+    'loc-cities': { bg: 'По градове',   en: 'Various cities' },
+    'loc-yambol': { bg: 'Ямбол',        en: 'Yambol' },
+    'loc-sofia':  { bg: 'София',        en: 'Sofia' },
+    'loc-gyurg':  { bg: 'Гюргево',      en: 'Giurgiu' },
+    'loc-pots':   { bg: 'Потсдам',      en: 'Potsdam' },
+    'loc-gabr':   { bg: 'Габрово',      en: 'Gabrovo' },
+    'loc-burgas': { bg: 'Бургас',       en: 'Burgas' },
+    'loc-prim':   { bg: 'Приморско',    en: 'Primorsko' },
+    'loc-mont':   { bg: 'Монтана',      en: 'Montana' },
+    'loc-assen':  { bg: 'Асеновград',   en: 'Asenovgrad' },
+    'loc-dash':   { bg: '—',            en: '—' },
 
-    // ── CONTACTS
-    'contacts-eyebrow':       { bg: 'Връзка с нас',     en: 'Get in Touch' },
-    'contacts-title':         { bg: 'Контакти',         en: 'Contacts' },
-    'contacts-office-label':  { bg: 'Централен офис',   en: 'Central Office' },
-    'contacts-office-value':  { bg: 'гр. Бургас, ул. Сердика<br>бл. 2Б, ет. 3, ап./офис 1', en: 'Burgas, 2B Serdika St.<br>Block 2B, Floor 3, Office 1' },
-    'contacts-email-label':   { bg: 'Имейл',            en: 'Email' },
-    'contacts-follow-label':  { bg: 'Последвайте ни',   en: 'Follow Us' },
+    'contacts-eyebrow':      { bg: 'Връзка с нас',   en: 'Get in Touch' },
+    'contacts-title':        { bg: 'Контакти',       en: 'Contacts' },
+    'contacts-office-label': { bg: 'Централен офис', en: 'Central Office' },
+    'contacts-office-value': { bg: 'гр. Бургас, ул. Сердика<br>бл. 2Б, ет. 3, офис 1', en: 'Burgas, 2B Serdika St.<br>Block 2B, Floor 3, Office 1' },
+    'contacts-email-label':  { bg: 'Имейл',          en: 'Email' },
+    'contacts-follow-label': { bg: 'Последвайте ни', en: 'Follow Us' },
 
-    // ── HISTORY
     'history-eyebrow': { bg: 'Корени и традиция', en: 'Roots and Tradition' },
     'history-title':   { bg: 'История',            en: 'History' },
 
     'hist-part1-title': { bg: 'Сосай Масутацу Ояма — основателят на Киокушин', en: 'Sosai Masutatsu Oyama — Founder of Kyokushin' },
-    'hist-1-p1': {
-      bg: '„Сосай" (Основател) Ояма е роден в Корея през 1923 г. и става основател на най-известния и разпространен в света стил карате. От 9-годишна възраст учи китайско Кенпо в Манчурия и по-късно практикува Джудо и бокс. Това го кара да започне да практикува окинавско карате, което в основата си служи като трамплин за създаването на негов собствен стил – Киокушин или „Върховната истина". Когато става на 20 години Ояма вече е получил 4-ти дан по окинавско карате и също придобива 4-ти дан в Джудо.',
-      en: '"Sosai" (Founder) Oyama was born in Korea in 1923 and became the founder of the most widely known and practiced karate style in the world. From age 9 he studied Chinese Kenpo in Manchuria and later practiced Judo and boxing. This led him to take up Okinawan karate, which served as a springboard for creating his own style — Kyokushin, or "The Ultimate Truth." By age 20 Oyama had already earned 4th dan in Okinawan karate and also achieved 4th dan in Judo.'
-    },
-    'hist-1-p2': {
-      bg: 'Между многото си постижения, може би най-известното е въвеждането на „тамешивари" или чупене на камък. Ояма доказва, че чрез здрави тренировки той може да направи ръцете си мощни като чук. Тази невероятна сила той пренася директно в неговата теория на бойно карате, заключавайки, че ако някой може да чупи камъни, то също и човешките кости биха се чупили при неговите удари. Голям негов принос към карате изобщо е въвеждането и популяризирането на бойната форма в пълен контакт.',
-      en: 'Among his many achievements, perhaps the most famous is the introduction of "tameshiwari," or stone-breaking. Oyama proved that through rigorous training he could make his hands as powerful as a hammer. He applied this incredible strength directly to his theory of combat karate, concluding that if one can break stones, human bones would also break under his blows. A major contribution to karate overall was his introduction and popularization of full-contact fighting.'
-    },
-    'hist-1-p3': {
-      bg: 'Ояма печели най-големия турнир в Япония, спонсориран от окинавското Шотокан карате. Той често бива санкциониран за това, че се бие прекалено твърдо, което води до чести контузии на неговите опоненти. Все пак, Ояма вярва, че карате е бойно изкуство и без да се стигне до неговите крайности, човек никога не би разбрал истинския духовен потенциал на карате.',
-      en: 'Oyama won the biggest tournament in Japan, sponsored by Okinawan Shotokan karate. He was frequently penalized for fighting too hard, which regularly resulted in injuries to his opponents. Nevertheless, Oyama believed that karate is a martial art and that without pushing to its extremes, one could never understand the true spiritual potential of karate.'
-    },
-    'hist-1-p4': {
-      bg: 'Раздразнен от обществената опозиция срещу растящата му сила, на 23 години се оттегля в далечно място в планините с амбицията да тренира повече часове дневно отколкото прекарва в сън, за три години. През този период той тренира като удря планински дървета с голи юмруци, докато те изсъхват и умират. Повдига двойно по-голяма тежест от неговите килограми стотици пъти дневно, медитира под леденостудени водопади, а през нощта се бори с демоните на острия студ и изолацията.',
-      en: 'Frustrated by public opposition to his growing power, at 23 he retreated to a remote mountain location with the ambition of training more hours each day than he slept, for three years. During this period he trained by striking mountain trees with his bare fists until they withered and died. He lifted twice his body weight hundreds of times a day, meditated under ice-cold waterfalls, and at night fought the demons of biting cold and isolation.'
-    },
-    'hist-1-p5': {
-      bg: 'На 27 години, убеден, че не би могъл да намери друг боец в Япония, който да му съперничи, Ояма поставя началото на своите известни борби с бикове, за да докаже силата си. В един прочут двубой пред камера, той се борил с бик на плажа в продължение на 45 минути. Накрая бикът се изморил, а Ояма отрязал един от роговете му с неговия „шуто".',
-      en: 'At 27, convinced he could find no other fighter in Japan to match him, Oyama began his famous bull fights to demonstrate his power. In one celebrated on-camera bout, he fought a bull on the beach for 45 minutes. The bull eventually tired, and Oyama severed one of its horns with his "shuto."'
-    },
-    'hist-1-p6': {
-      bg: 'Мас Ояма открива своето първо доджо в Икебукуро, Токио на 30 години и го нарича „Ояма Доджо." Тук той прилага всичко научено от различните стилове и създава нов стил карате, който нарича Киокушин. През 1964 г., ново доджо в Икебукуро става световния щаб на Международната Карате Организация Киокушинкайкан, която има над 12 милиона члена в 133 страни по времето, когато той си отива от този свят на 26 April 1994 г.',
-      en: 'Mas Oyama opened his first dojo in Ikebukuro, Tokyo at age 30 and named it "Oyama Dojo." There he applied everything learned from various styles and created a new karate style he called Kyokushin. In 1964, a new dojo in Ikebukuro became the world headquarters of the International Karate Organization Kyokushinkaikan, which had over 12 million members in 133 countries by the time he passed away on April 26, 1994.'
-    },
+    'hist-1-p1': { bg: '„Сосай" (Основател) Ояма е роден в Корея през 1923 г. и става основател на най-известния и разпространен в света стил карате. От 9-годишна възраст учи китайско Кенпо в Манчурия и по-късно практикува Джудо и бокс. Това го кара да започне да практикува окинавско карате, което в основата си служи като трамплин за създаването на негов собствен стил – Киокушин или „Върховната истина". Когато става на 20 години Ояма вече е получил 4-ти дан по окинавско карате и също придобива 4-ти дан в Джудо.', en: '"Sosai" (Founder) Oyama was born in Korea in 1923 and became the founder of the most widely known and practiced karate style in the world. From age 9 he studied Chinese Kenpo in Manchuria and later practiced Judo and boxing. This led him to take up Okinawan karate, which served as a springboard for creating his own style — Kyokushin, or "The Ultimate Truth." By age 20 Oyama had already earned 4th dan in Okinawan karate and also achieved 4th dan in Judo.' },
+    'hist-1-p2': { bg: 'Между многото си постижения, може би най-известното е въвеждането на „тамешивари" или чупене на камък. Ояма доказва, че чрез здрави тренировки той може да направи ръцете си мощни като чук. Тази невероятна сила той пренася директно в неговата теория на бойно карате, заключавайки, че ако някой може да чупи камъни, то също и човешките кости биха се чупили при неговите удари. Голям негов принос към карате изобщо е въвеждането и популяризирането на бойната форма в пълен контакт.', en: 'Among his many achievements, perhaps the most famous is the introduction of "tameshiwari," or stone-breaking. Oyama proved that through rigorous training he could make his hands as powerful as a hammer. He applied this incredible strength directly to his theory of combat karate, concluding that if one can break stones, human bones would also break under his blows. A major contribution to karate overall was his introduction and popularization of full-contact fighting.' },
+    'hist-1-p3': { bg: 'Ояма печели най-големия турнир в Япония, спонсориран от окинавското Шотокан карате. Той често бива санкциониран за това, че се бие прекалено твърдо, което води до чести контузии на неговите опоненти. Все пак, Ояма вярва, че карате е бойно изкуство и без да се стигне до неговите крайности, човек никога не би разбрал истинския духовен потенциал на карате.', en: 'Oyama won the biggest tournament in Japan, sponsored by Okinawan Shotokan karate. He was frequently penalized for fighting too hard, which regularly resulted in injuries to his opponents. Nevertheless, Oyama believed that karate is a martial art and that without pushing to its extremes, one could never understand the true spiritual potential of karate.' },
+    'hist-1-p4': { bg: 'Раздразнен от обществената опозиция срещу растящата му сила, на 23 години се оттегля в далечно място в планините с амбицията да тренира повече часове дневно отколкото прекарва в сън, за три години. През този период той тренира като удря планински дървета с голи юмруци, докато те изсъхват и умират. Повдига двойно по-голяма тежест от неговите килограми стотици пъти дневно, медитира под леденостудени водопади, а през нощта се бори с демоните на острия студ и изолацията.', en: 'Frustrated by public opposition to his growing power, at 23 he retreated to a remote mountain location with the ambition of training more hours each day than he slept, for three years. During this period he trained by striking mountain trees with his bare fists until they withered and died. He lifted twice his body weight hundreds of times a day, meditated under ice-cold waterfalls, and at night fought the demons of biting cold and isolation.' },
+    'hist-1-p5': { bg: 'На 27 години, убеден, че не би могъл да намери друг боец в Япония, който да му съперничи, Ояма поставя началото на своите известни борби с бикове, за да докаже силата си. В един прочут двубой пред камера, той се борил с бик на плажа в продължение на 45 минути. Накрая бикът се изморил, а Ояма отрязал един от роговете му с неговия „шуто".', en: 'At 27, convinced he could find no other fighter in Japan to match him, Oyama began his famous bull fights to demonstrate his power. In one celebrated on-camera bout, he fought a bull on the beach for 45 minutes. The bull eventually tired, and Oyama severed one of its horns with his "shuto."' },
+    'hist-1-p6': { bg: 'Мас Ояма открива своето първо доджо в Икебукуро, Токио на 30 години и го нарича „Ояма Доджо." Тук той прилага всичко научено от различните стилове и създава нов стил карате, който нарича Киокушин. През 1964 г., ново доджо в Икебукуро става световния щаб на Международната Карате Организация Киокушинкайкан, която има над 12 милиона члена в 133 страни по времето, когато той си отива от този свят на 26 April 1994 г.', en: 'Mas Oyama opened his first dojo in Ikebukuro, Tokyo at age 30 and named it "Oyama Dojo." There he applied everything learned from various styles and created a new karate style he called Kyokushin. In 1964, a new dojo in Ikebukuro became the world headquarters of the International Karate Organization Kyokushinkaikan, which had over 12 million members in 133 countries by the time he passed away on April 26, 1994.' },
 
     'hist-part2-title': { bg: '„Канчо" Хацуо Рояма и Киокушин-кан', en: '"Kancho" Hatsuo Royama and Kyokushin-kan' },
-    'hist-2-p1': {
-      bg: '"Канчо" (Председател) Хацуо Рояма е роден в Сйата, на север от Токио, през 1948 г. Вдъхновен от бумът в популярността на известни бойци и борци, той отива в Икебукуро на 15-годишна възраст и се присъединява към легендарното „Ояма Доджо". Рояма се оказва един от малкото ученици, които са толкова приближени на организацията от нейното начало, чак до смъртта на Ояма през 1994 г.',
-      en: '"Kancho" (Chairman) Hatsuo Royama was born in Syata, north of Tokyo, in 1948. Inspired by the surge in popularity of famous fighters and wrestlers, he traveled to Ikebukuro at age 15 and joined the legendary "Oyama Dojo." Royama proved to be one of the few students who remained so close to the organization from its very beginning until Oyama\'s death in 1994.'
-    },
-    'hist-2-p2': {
-      bg: 'Рояма става известен на 25-годишна възраст, когато става шампион на 5-ия японски Киокушин турнир. На първия открит световен карате турнир през 1975 г. той продължава до историческия финал, където първото място се присъжда на Катсуаки Сато, а Рояма оставя на второ място. На следващия ден след турнира, когато няколко бойци влизат в болница заради контузии, Рояма провежда обичайната си тренировка.',
-      en: 'Royama rose to fame at 25, winning the 5th All-Japan Kyokushin Tournament. At the first Open World Karate Tournament in 1975 he fought through to the historic final, where first place was awarded to Katsuaki Sato while Royama finished second. The day after the tournament, when several fighters were hospitalized with injuries, Royama conducted his regular training session.'
-    },
-    'hist-2-p3': {
-      bg: 'Никой, който познава карате Киокушин днес, не би разделил стила от неговия унищожително силен „лоу кик". Не всеки знае, че именно Рояма прави тази техника известна. На ранните световни турнири японците чуват чужденците да викат „Low kick! Low kick!", и тъй като произношението на „R" в японски е близо до „L", те чували „Ro kick! Ro kick!" — вярвайки, че дори чужденците кръстили тази техника на Рояма.',
-      en: 'Anyone familiar with Kyokushin karate today cannot separate the style from its devastatingly powerful "low kick." Not everyone knows that it was Royama who made this technique famous. At early world tournaments, the Japanese heard foreigners shouting "Low kick! Low kick!" — and since the Japanese pronunciation of "R" is close to "L," they heard "Ro kick! Ro kick!" — believing that even foreigners had named the technique after Royama.'
-    },
-    'hist-2-p4': {
-      bg: 'Рояма напуска този свят на 3-и август 2026 г.',
-      en: 'Royama passed away on August 3, 2026.'
-    },
+    'hist-2-p1': { bg: '"Канчо" (Председател) Хацуо Рояма е роден в Сйата, на север от Токио, през 1948 г. Вдъхновен от бумът в популярността на известни бойци и борци, той отива в Икебукуро на 15-годишна възраст и се присъединява към легендарното „Ояма Доджо". Рояма се оказва един от малкото ученици, които са толкова приближени на организацията от нейното начало, чак до смъртта на Ояма през 1994 г.', en: '"Kancho" (Chairman) Hatsuo Royama was born in Syata, north of Tokyo, in 1948. Inspired by the surge in popularity of famous fighters and wrestlers, he traveled to Ikebukuro at age 15 and joined the legendary "Oyama Dojo." Royama proved to be one of the few students who remained so close to the organization from its very beginning until Oyama\'s death in 1994.' },
+    'hist-2-p2': { bg: 'Рояма става известен на 25-годишна възраст, когато става шампион на 5-ия японски Киокушин турнир. На първия открит световен карате турнир през 1975 г. той продължава до историческия финал, където първото място се присъжда на Катсуаки Сато, а Рояма оставя на второ място. На следващия ден след турнира, когато няколко бойци влизат в болница заради контузии, Рояма провежда обичайната си тренировка.', en: 'Royama rose to fame at 25, winning the 5th All-Japan Kyokushin Tournament. At the first Open World Karate Tournament in 1975 he fought through to the historic final, where first place was awarded to Katsuaki Sato while Royama finished second. The day after the tournament, when several fighters were hospitalized with injuries, Royama conducted his regular training session.' },
+    'hist-2-p3': { bg: 'Никой, който познава карате Киокушин днес, не би разделил стила от неговия унищожително силен „лоу кик". Не всеки знае, че именно Рояма прави тази техника известна. На ранните световни турнири японците чуват чужденците да викат „Low kick! Low kick!", и тъй като произношението на „R" в японски е близо до „L", те чували „Ro kick! Ro kick!" — вярвайки, че дори чужденците кръстили тази техника на Рояма.', en: 'Anyone familiar with Kyokushin karate today cannot separate the style from its devastatingly powerful "low kick." Not everyone knows that it was Royama who made this technique famous. At early world tournaments, the Japanese heard foreigners shouting "Low kick! Low kick!" — and since the Japanese pronunciation of "R" is close to "L," they heard "Ro kick! Ro kick!" — believing that even foreigners had named the technique after Royama.' },
+    'hist-2-p4': { bg: 'Рояма напуска този свят на 3-и август 2026 г.', en: 'Royama passed away on August 3, 2026.' },
 
     'hist-part3-title': { bg: 'Раждането на Киокушин-кан', en: 'The Birth of Kyokushin-kan' },
-    'hist-3-p1': {
-      bg: 'В десетилетието след смъртта на сосай Ояма, Международната Карате Организация с 12 милиона члена се разделя няколко пъти. През 2002 г. Рояма, заедно с много от неговите приятели и последователи, се отделя и създава нова организация с името Киокушин-кан.',
-      en: 'In the decade following Sosai Oyama\'s death, the International Karate Organization with 12 million members split several times. In 2002, Royama, together with many of his friends and followers, broke away and established a new organization called Kyokushin-kan.'
-    },
-    'hist-3-p2': {
-      bg: 'Рояма разбира, че новото ръководство е заменило важните елементи — духа на Будо, учтивостта, духа на Осу и добронамереността към хората — с глад за пари и жажда за власт. Решава да възстанови фондацията Киокушин Шогакукай на Ояма, завещана от сосая при смъртта му.',
-      en: 'Royama recognized that the new leadership had replaced the essential elements — the spirit of Budo, courtesy, the spirit of Osu, and goodwill toward people — with greed for money and thirst for power. He resolved to restore Oyama\'s Kyokushin Shogakukai Foundation, bequeathed by the Sosai upon his death.'
-    },
-    'hist-3-p3': {
-      bg: 'В трите години след основаването, над 6 000 японски каратеки се събират в подкрепа на Киокушин-кан в 50 клона из цяла Япония. Още 25 клона са основани по света. Ежегодни турнири за цяла Япония се провеждат в Сайтама, а първият световен открит турнир по карате Киокушин-кан се провежда в Москва през септември 2005 г.',
-      en: 'Within three years of its founding, over 6,000 Japanese karateka rallied in support of Kyokushin-kan across 50 branches throughout Japan. An additional 25 branches were established worldwide. Annual All-Japan tournaments were held in Saitama, and the first World Open Kyokushin-kan Karate Tournament was held in Moscow in September 2005.'
-    },
+    'hist-3-p1': { bg: 'В десетилетието след смъртта на сосай Ояма, Международната Карате Организация с 12 милиона члена се разделя няколко пъти. През 2002 г. Рояма, заедно с много от неговите приятели и последователи, се отделя и създава нова организация с името Киокушин-кан.', en: 'In the decade following Sosai Oyama\'s death, the International Karate Organization with 12 million members split several times. In 2002, Royama, together with many of his friends and followers, broke away and established a new organization called Kyokushin-kan.' },
+    'hist-3-p2': { bg: 'Рояма разбира, че новото ръководство е заменило важните елементи — духа на Будо, учтивостта, духа на Осу и добронамереността към хората — с глад за пари и жажда за власт. Решава да възстанови фондацията Киокушин Шогакукай на Ояма, завещана от сосая при смъртта му.', en: 'Royama recognized that the new leadership had replaced the essential elements — the spirit of Budo, courtesy, the spirit of Osu, and goodwill toward people — with greed for money and thirst for power. He resolved to restore Oyama\'s Kyokushin Shogakukai Foundation, bequeathed by the Sosai upon his death.' },
+    'hist-3-p3': { bg: 'В трите години след основаването, над 6 000 японски каратеки се събират в подкрепа на Киокушин-кан в 50 клона из цяла Япония. Още 25 клона са основани по света. Ежегодни турнири за цяла Япония се провеждат в Сайтама, а първият световен открит турнир по карате Киокушин-кан се провежда в Москва през септември 2005 г.', en: 'Within three years of its founding, over 6,000 Japanese karateka rallied in support of Kyokushin-kan across 50 branches throughout Japan. An additional 25 branches were established worldwide. Annual All-Japan tournaments were held in Saitama, and the first World Open Kyokushin-kan Karate Tournament was held in Moscow in September 2005.' },
 
     'hist-part4-title': { bg: 'За Българска Федерация Киокушин-кан', en: 'About the Bulgarian Kyokushin-kan Federation' },
-    'hist-4-p1': {
-      bg: 'Основана през 2021 г. от едни от най-опитните и утвърдени майстори на Киокушин в България — хора, които носят традицията на стила още от първите му години у нас. След дълъг период на организационни предизвикателства и разминавания във визии, групата от ветерани решава да поеме по собствен път, водена от желанието да съхрани духа на истинския будо Киокушин.',
-      en: 'Founded in 2021 by some of the most experienced and established Kyokushin masters in Bulgaria — individuals who have carried the tradition of the style since its very first years in our country. After a long period of organizational challenges and differing visions, the group of veterans decided to forge their own path, driven by the desire to preserve the spirit of true Budo Kyokushin.'
-    },
-    'hist-4-p2': {
-      bg: 'Този процес напомня на пътя, по който върви Канчо Хацуо Рояма при създаването на международната организация Киокушин-кан — стремеж към възстановяване на техническата чистота, философската дълбочина и моралните принципи, заложени от Масутацу Ояма.',
-      en: 'This process mirrors the path taken by Kancho Hatsuo Royama in founding the international Kyokushin-kan organization — a striving to restore the technical purity, philosophical depth, and moral principles established by Masutatsu Oyama.'
-    },
-    'hist-4-p3': {
-      bg: 'Днес Българска Федерация Киокушин-кан обединява клубове и инструктори от цялата страна, развива състезателна и техническа дейност, организира семинари, изпити и национални прояви, и работи за утвърждаването на Киокушин-кан като силна, последователна и честна школа в българските бойни изкуства.',
-      en: 'Today the Bulgarian Kyokushin-kan Federation unites clubs and instructors from across the country, develops competitive and technical activities, organizes seminars, examinations and national events, and works to establish Kyokushin-kan as a strong, consistent and honourable school within Bulgarian martial arts.'
-    },
+    'hist-4-p1': { bg: 'Основана през 2021 г. от едни от най-опитните и утвърдени майстори на Киокушин в България — хора, които носят традицията на стила още от първите му години у нас. След дълъг период на организационни предизвикателства и разминавания във визии, групата от ветерани решава да поеме по собствен път, водена от желанието да съхрани духа на истинския будо Киокушин.', en: 'Founded in 2021 by some of the most experienced and established Kyokushin masters in Bulgaria — individuals who have carried the tradition of the style since its very first years in our country. After a long period of organizational challenges and differing visions, the group of veterans decided to forge their own path, driven by the desire to preserve the spirit of true Budo Kyokushin.' },
+    'hist-4-p2': { bg: 'Този процес напомня на пътя, по който върви Канчо Хацуо Рояма при създаването на международната организация Киокушин-кан — стремеж към възстановяване на техническата чистота, философската дълбочина и моралните принципи, заложени от Масутацу Ояма.', en: 'This process mirrors the path taken by Kancho Hatsuo Royama in founding the international Kyokushin-kan organization — a striving to restore the technical purity, philosophical depth, and moral principles established by Masutatsu Oyama.' },
+    'hist-4-p3': { bg: 'Днес Българска Федерация Киокушин-кан обединява клубове и инструктори от цялата страна, развива състезателна и техническа дейност, организира семинари, изпити и национални прояви, и работи за утвърждаването на Киокушин-кан като силна, последователна и честна школа в българските бойни изкуства.', en: 'Today the Bulgarian Kyokushin-kan Federation unites clubs and instructors from across the country, develops competitive and technical activities, organizes seminars, examinations and national events, and works to establish Kyokushin-kan as a strong, consistent and honourable school within Bulgarian martial arts.' },
 
-    // ── FOOTER
-    'footer-copy': { bg: '© 2026 Българска Федерация Киокушин-кан — Всички права запазени', en: '© 2026 Bulgarian Kyokushin-kan Federation — All rights reserved' },
+    'footer-copy': { bg: '© Българска Федерация Киокушин-кан — Всички права запазени.', en: '© Bulgarian Kyokushin-kan Federation — All rights reserved.' },
     'footer-osu':  { bg: 'Осу!', en: 'Osu!' },
-    'footer-credit': {
-      bg: 'Изработка и дизайн: <a href="mailto:tsvetoslav.presolski@gmail.com">Цветослав Пресолски</a>',
-      en: 'Design and development: <a href="mailto:tsvetoslav.presolski@gmail.com">Tsvetoslav Presolski</a>'
-    }
+    'footer-credit': { bg: 'Изработка и дизайн: <a href="mailto:tsvetoslav.presolski@gmail.com">Цветослав Пресолски</a>', en: 'Design and development: <a href="mailto:tsvetoslav.presolski@gmail.com">Tsvetoslav Presolski</a>' }
   };
 
-  // ── Assign data-i18n attributes on page load
-  function initI18n() {
-    // Nav title text node + span
-    var navTitle = document.querySelector('.nav-title');
-    if (navTitle) navTitle.setAttribute('data-i18n-navtitle', '1');
-    var navTitleSpan = document.querySelector('.nav-title span');
-    if (navTitleSpan) navTitleSpan.setAttribute('data-i18n', 'nav-title-span');
+  /* ═══════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════ */
+  function showView(view) {
+    var hero = document.getElementById('hero');
+    var isHome = (view === 'home' || view === '' || view === null);
 
-    // Nav menu links
-    document.querySelectorAll('#navmenu a[data-s]').forEach(function(a) {
-      a.setAttribute('data-i18n', 'nav-' + a.getAttribute('data-s'));
+    hero.style.display = isHome ? '' : 'none';
+
+    document.querySelectorAll('.section').forEach(function (s) {
+      s.classList.toggle('active', !isHome && s.id === view);
     });
 
-    // Hero
-    tag('.hero-eyebrow', 'data-i18n', 'hero-eyebrow');
-    tag('.hero-subtitle', 'data-i18n', 'hero-subtitle');
-
-    // Section eyebrows & titles
-    tag('#news .section-eyebrow',     'data-i18n', 'news-eyebrow');
-    tag('#news .section-title',       'data-i18n', 'news-title');
-    tag('#calendar .section-eyebrow', 'data-i18n', 'cal-eyebrow');
-    tag('#calendar .section-title',   'data-i18n', 'cal-title');
-    tag('#contacts .section-eyebrow', 'data-i18n', 'contacts-eyebrow');
-    tag('#contacts .section-title',   'data-i18n', 'contacts-title');
-    tag('#history .section-eyebrow',  'data-i18n', 'history-eyebrow');
-    tag('#history .section-title',    'data-i18n', 'history-title');
-
-    // Calendar table headers
-    var ths = document.querySelectorAll('.cal-table thead th');
-    var thKeys = ['cal-th-date','cal-th-event','cal-th-participants','cal-th-place'];
-    ths.forEach(function(th, i) { if (thKeys[i]) th.setAttribute('data-i18n', thKeys[i]); });
-
-    // Calendar month rows — match by Bulgarian text content
-    var monthMap = {
-      'ЯНУАРИ':'cal-month-jan','ФЕВРУАРИ':'cal-month-feb','МАРТ':'cal-month-mar',
-      'АПРИЛ':'cal-month-apr','МАЙ':'cal-month-may','ЮНИ':'cal-month-jun',
-      'ЮЛИ':'cal-month-jul','СЕПТЕМВРИ':'cal-month-sep','ОКТОМВРИ':'cal-month-oct'
-    };
-    document.querySelectorAll('td.cal-month').forEach(function(td) {
-      var k = monthMap[td.textContent.trim()];
-      if (k) td.setAttribute('data-i18n', k);
+    document.querySelectorAll('#navmenu a[data-s]').forEach(function (a) {
+      var active = !isHome && a.getAttribute('data-s') === view;
+      a.classList.toggle('active', active);
+      if (active) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
     });
 
-    // Calendar event rows — map event cell, participants cell, location cell
-    var calRows = [
-      { event:'cal-e1',  par:'par-coaches',    loc:'loc-sz' },
-      { event:'cal-e2',  par:'par-national',   loc:'loc-sz' },
-      { event:'cal-e3',  par:'par-to5kyu',     loc:'loc-cities' },
-      { event:'cal-e4',  par:'par-commission', loc:'loc-yambol' },
-      { event:'cal-e5',  par:'par-referees',   loc:'loc-sofia' },
-      { event:'cal-e6',  par:'par-all',        loc:'loc-sofia' },
-      { event:'cal-e2',  par:'par-national',   loc:'loc-dash' },
-      { event:'cal-e7',  par:'par-all',        loc:'loc-gyurg' },
-      { event:'cal-e8',  par:'par-all',        loc:'loc-pots' },
-      { event:'cal-e9',  par:'par-all',        loc:'loc-gabr' },
-      { event:'cal-e2',  par:'par-national',   loc:'loc-dash' },
-      { event:'cal-e10', par:'par-dash',       loc:'loc-burgas' },
-      { event:'cal-e11', par:'par-dash',       loc:'loc-burgas' },
-      { event:'cal-e12', par:'par-all',        loc:'loc-prim' },
-      { event:'cal-e13', par:'par-instructors',loc:'loc-prim' },
-      { event:'cal-e14', par:'par-to2dan',     loc:'loc-prim' },
-      { event:'cal-e2',  par:'par-national',   loc:'loc-dash' },
-      { event:'cal-e15', par:'par-all',        loc:'loc-mont' },
-      { event:'cal-e16', par:'par-refkan',     loc:'loc-assen' },
-      { event:'cal-e17', par:'par-all',        loc:'loc-assen' },
-      { event:'cal-e18', par:'par-all',        loc:'loc-yambol' }
-    ];
-    var dataRows = Array.from(document.querySelectorAll('.cal-table tbody tr')).filter(function(r) {
-      return !r.querySelector('.cal-month');
-    });
-    dataRows.forEach(function(row, i) {
-      var m = calRows[i];
-      if (!m) return;
-      var cells = row.querySelectorAll('td');
-      if (cells[1]) cells[1].setAttribute('data-i18n', m.event);
-      if (cells[2]) cells[2].setAttribute('data-i18n', m.par);
-      if (cells[3]) cells[3].setAttribute('data-i18n', m.loc);
-    });
-
-    // Contact cards
-    var labels = document.querySelectorAll('.contact-card-label');
-    if (labels[0]) labels[0].setAttribute('data-i18n', 'contacts-office-label');
-    if (labels[1]) labels[1].setAttribute('data-i18n', 'contacts-email-label');
-    if (labels[2]) labels[2].setAttribute('data-i18n', 'contacts-follow-label');
-    var officeVal = document.querySelectorAll('.contact-card-value')[0];
-    if (officeVal) officeVal.setAttribute('data-i18n-html', 'contacts-office-value');
-
-    // News paragraphs
-    var newsMap = [
-      ['news-12-p1','news-12-p2','news-12-p3','news-12-p4','news-12-p5','news-12-p6','news-12-p7'],
-      ['news-7-p1','news-7-p2','news-7-p3','news-7-p4','news-7-p5','news-7-p6','news-7-p7'],
-      ['news-8-p1','news-8-p2','news-8-p3','news-8-p4'],
-      ['news-9-p1','news-9-p2','news-9-p3'],
-      ['news-10-p1','news-10-p2','news-10-p3','news-10-p4'],
-      ['news-11-p1'],
-      ['news-6-p1','news-6-p2','news-6-p3','news-6-p4'],
-      ['news-5-p1','news-5-p2','news-5-p3','news-5-p4'],
-      ['news-0-p1','news-0-p2','news-0-p3','news-0-p4','news-0-p5','news-0-p6'],
-      ['news-1-p1','news-1-p2'],
-      ['news-2-p1','news-2-p2','news-2-p3'],
-      ['news-3-p1','news-3-p2'],
-      ['news-4-p1','news-4-p2']
-    ];
-    document.querySelectorAll('.news-item').forEach(function(item, i) {
-      if (!newsMap[i]) return;
-      item.querySelectorAll('.news-body p').forEach(function(p, j) {
-        if (newsMap[i][j]) p.setAttribute('data-i18n-html', newsMap[i][j]);
-      });
-    });
-
-    // History
-    var histMap = [
-      { title:'hist-part1-title', ps:['hist-1-p1','hist-1-p2','hist-1-p3','hist-1-p4','hist-1-p5','hist-1-p6'] },
-      { title:'hist-part2-title', ps:['hist-2-p1','hist-2-p2','hist-2-p3','hist-2-p4'] },
-      { title:'hist-part3-title', ps:['hist-3-p1','hist-3-p2','hist-3-p3'] },
-      { title:'hist-part4-title', ps:['hist-4-p1','hist-4-p2','hist-4-p3'] }
-    ];
-    document.querySelectorAll('.history-part').forEach(function(part, i) {
-      if (!histMap[i]) return;
-      var t = part.querySelector('.history-part-title');
-      if (t) t.setAttribute('data-i18n', histMap[i].title);
-      part.querySelectorAll('p').forEach(function(p, j) {
-        if (histMap[i].ps[j]) p.setAttribute('data-i18n-html', histMap[i].ps[j]);
-      });
-    });
-
-    // Footer
-    var fps = document.querySelectorAll('footer p');
-    if (fps[0]) fps[0].setAttribute('data-i18n', 'footer-copy');
-    if (fps[1]) fps[1].setAttribute('data-i18n', 'footer-osu');
-    if (fps[2]) fps[2].setAttribute('data-i18n-html', 'footer-credit');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function tag(sel, attr, val) {
-    var el = document.querySelector(sel);
-    if (el) el.setAttribute(attr, val);
+  function openSection(id) {
+    showView(id);
+    if (history.replaceState) {
+      history.replaceState(null, '', '#' + id);
+    } else {
+      location.hash = id;
+    }
   }
+
+  function goHome() {
+    showView('home');
+    if (history.replaceState) {
+      history.replaceState(null, '', location.pathname + location.search);
+    } else {
+      location.hash = '';
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     SHARD ANIMATION
+     ═══════════════════════════════════════ */
+  var prefersReducedMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function spawnShards(btn, clickEvent) {
+    if (prefersReducedMotion) return;
+
+    var rect = btn.getBoundingClientRect();
+    var x = clickEvent.clientX - rect.left;
+    var y = clickEvent.clientY - rect.top;
+    var count = window.innerWidth < 768 ? 8 : 18;
+
+    for (var i = 0; i < count; i++) {
+      (function () {
+        var shard = document.createElement('div');
+        shard.className = 'shard';
+        shard.style.left = x + 'px';
+        shard.style.top = y + 'px';
+        btn.appendChild(shard);
+
+        var angle = Math.random() * Math.PI * 2;
+        var dist = 50 + Math.random() * 90;
+        var anim = shard.animate([
+          { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1 },
+          {
+            transform: 'translate(' + (Math.cos(angle) * dist) + 'px,' +
+              (Math.sin(angle) * dist) + 'px) rotate(' +
+              (Math.random() * 720 - 360) + 'deg) scale(0)',
+            opacity: 0
+          }
+        ], { duration: 600 + Math.random() * 400, easing: 'ease-out', fill: 'forwards' });
+
+        if (anim && anim.onfinish !== undefined) {
+          anim.onfinish = function () { shard.remove(); };
+        } else {
+          setTimeout(function () { shard.remove(); }, 1000);
+        }
+      })();
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     LANGUAGE
+     ═══════════════════════════════════════ */
+  var currentLang = 'bg';
 
   function applyLang(lang) {
-    // Plain text elements
-    document.querySelectorAll('[data-i18n]').forEach(function(el) {
-      var entry = T[el.getAttribute('data-i18n')];
+    currentLang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      var entry = T[key];
       if (entry && entry[lang] !== undefined) el.textContent = entry[lang];
     });
-    // HTML elements
-    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
-      var entry = T[el.getAttribute('data-i18n-html')];
+
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-html');
+      var entry = T[key];
       if (entry && entry[lang] !== undefined) el.innerHTML = entry[lang];
     });
-    // Nav title first text node
-    var navTitle = document.querySelector('.nav-title');
-    if (navTitle) {
-      navTitle.childNodes.forEach(function(n) {
-        if (n.nodeType === 3 && n.textContent.trim()) {
-          n.textContent = '\n        ' + T['nav-title-line1'][lang] + '\n        ';
-        }
-      });
+
+    document.documentElement.lang = lang;
+
+    var btnBG = document.getElementById('btnBG');
+    var btnEN = document.getElementById('btnEN');
+    if (btnBG) {
+      btnBG.classList.toggle('lang-active', lang === 'bg');
+      btnBG.setAttribute('aria-pressed', lang === 'bg' ? 'true' : 'false');
     }
-    // Hero title
-    var heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-      heroTitle.childNodes.forEach(function(n) {
-        if (n.nodeType === 3 && n.textContent.trim()) {
-          n.textContent = '\n    ' + T['hero-title-line1'][lang] + '\n    ';
-        }
-      });
-      var em = heroTitle.querySelector('em');
-      if (em) em.textContent = T['hero-title-em'][lang];
+    if (btnEN) {
+      btnEN.classList.toggle('lang-active', lang === 'en');
+      btnEN.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
     }
-    // Button states
-    document.getElementById('btnBG').classList.toggle('lang-active', lang === 'bg');
-    document.getElementById('btnEN').classList.toggle('lang-active', lang === 'en');
   }
 
   function setLang(lang) {
-    currentLang = lang;
     applyLang(lang);
+    try { localStorage.setItem('bfk-lang', lang); } catch (e) { /* no-op */ }
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    initI18n();
-    applyLang('bg');
+  /* ═══════════════════════════════════════
+     INIT
+     ═══════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', function () {
+
+    /* --- Nav menu clicks --- */
+    document.querySelectorAll('#navmenu a[data-s]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        spawnShards(a, e);
+        openSection(a.getAttribute('data-s'));
+      });
+    });
+
+    /* --- Logo click -> home --- */
+    var logo = document.getElementById('logoBtn');
+    if (logo) {
+      logo.addEventListener('click', function (e) {
+        e.preventDefault();
+        goHome();
+      });
+    }
+
+    /* --- Language buttons --- */
+    var btnBG = document.getElementById('btnBG');
+    var btnEN = document.getElementById('btnEN');
+    if (btnBG) btnBG.addEventListener('click', function () { setLang('bg'); });
+    if (btnEN) btnEN.addEventListener('click', function () { setLang('en'); });
+
+    /* --- Hash routing on load --- */
+    var initialLang = 'bg';
+    try { initialLang = localStorage.getItem('bfk-lang') || 'bg'; } catch (e) { /* no-op */ }
+
+    var hash = (location.hash || '').replace('#', '');
+    var validSections = ['news', 'calendar', 'contacts', 'history'];
+
+    if (validSections.indexOf(hash) !== -1) {
+      showView(hash);
+    } else {
+      showView('home');
+    }
+
+    /* Apply saved language only if non-default (avoid FOUT on load) */
+    if (initialLang !== 'bg') {
+      applyLang(initialLang);
+    } else {
+      /* Still sync button state */
+      applyLang('bg');
+    }
+
+    /* --- Browser back/forward --- */
+    window.addEventListener('hashchange', function () {
+      var h = (location.hash || '').replace('#', '');
+      if (validSections.indexOf(h) !== -1) {
+        showView(h);
+      } else {
+        showView('home');
+      }
+    });
   });
 </script>
 </body>
